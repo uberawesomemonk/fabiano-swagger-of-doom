@@ -70,7 +70,7 @@ namespace AdminPanel
         {
             try
             {
-                var webRequest = WebRequest.CreateHttp(String.Format("http://127.0.0.1/admin/performCommand?guid={0}&password={1}&command={2}", account.Email, account.Password, command));
+                var webRequest = WebRequest.CreateHttp(String.Format("http://104.236.126.170:8888/admin/performCommand?guid={0}&password={1}&command={2}", account.Email, account.Password, command));
                 using (StreamReader rdr = new StreamReader(webRequest.GetResponse().GetResponseStream()))
                 {
                     var xml = rdr.ReadToEnd().Trim();

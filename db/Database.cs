@@ -232,9 +232,10 @@ AND characters.charId=death.chrId;";
             }
 
             DateTime converted;
-            if (TimeZoneInfo.Local.Id != TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time").Id)
-                converted = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time"));
-            else
+            // todo: db linux/mono timezone fix
+            //if (TimeZoneInfo.Local.Id != TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time").Id)
+            //    converted = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time"));
+            //else
                 converted = DateTime.Now;
 
             var fixedTime = new DateTime(converted.Year, converted.Month, converted.Day, 17, 0, 0, 0, DateTimeKind.Unspecified);

@@ -54,7 +54,7 @@ namespace server
             InstanceId = Guid.NewGuid().ToString();
             Console.CancelKeyPress += (sender, e) => e.Cancel = true;
 
-            var port = Settings.GetValue<int>("port", "80");
+            var port = Settings.GetValue<int>("port", "8888");
 
             if (RunPreCheck(port))
             {

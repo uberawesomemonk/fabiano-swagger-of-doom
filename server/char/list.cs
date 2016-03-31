@@ -147,7 +147,8 @@ namespace server.@char
                     Name = Program.Settings.GetValue<string>("svr" + i + "Name"),
                     Lat = p != null ? p.Latitude : 0,
                     Long = p != null ? p.Longitude : 0,
-                    DNS = Program.Settings.GetValue<string>("svr" + i + "Adr", "127.0.0.1"),
+                    DNS = Program.Settings.GetValue<string>("svr" + i + "Adr", "104.236.126.170:8888"),
+                    //DNS = Program.Settings.GetValue<string>("svr" + i + "Adr", "127.0.0.1:8888"),
                     Usage = usage,
                     AdminOnly = Program.Settings.GetValue<bool>("svr" + i + "Admin", "false")
                 });

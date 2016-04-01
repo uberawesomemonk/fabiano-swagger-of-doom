@@ -148,7 +148,11 @@ namespace wServer.logic
                         )
                     ),
                     new State("Forever Alone")
-                )
+                ),
+                new Threshold(1.0,
+                    new ItemLoot("Ancient Stone Sword", 0.001),
+                    new ItemLoot("Potion of Defense", 0.5)
+            )
             )
             .Init("Oryx Stone Guardian Left",
                 new State(
@@ -286,7 +290,11 @@ namespace wServer.logic
                         )
                     ),
                     new State("Forever Alone")
-                )
+                ),
+                new Threshold(1.0,
+                    new ItemLoot("Ancient Stone Sword", 0.001),
+                    new ItemLoot("Potion of Defense", 0.5)
+            )
             )
             .Init("Oryx Guardian TaskMaster",
                 new State(

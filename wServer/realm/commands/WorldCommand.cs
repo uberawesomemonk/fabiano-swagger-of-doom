@@ -130,6 +130,50 @@ namespace wServer.realm.commands
         }
     }
 
+    internal class GlandCommand : Command
+    {
+        public GlandCommand()
+            : base("glands", 0)
+        {
+        }
+
+        protected override bool Process(Player player, RealmTime time, string[] args)
+        {
+            if (args.Length == 1000 || args.Length == 1000)
+            {
+                player.SendHelp("Usage: /glands to tp to glands");
+            }
+            else
+            {
+                int x, y;
+                try
+                {
+                    x = int.Parse("1000");
+                    y = int.Parse("1000");
+                }
+                catch
+                {
+                    player.SendError("Invalid coordinates!");
+                    return false;
+                }
+                player.Move(x + 0.5f, y + 0.5f);
+                if (player.Pet != null)
+                    player.Pet.Move(x + 0.5f, y + 0.5f);
+                player.UpdateCount++;
+                player.Owner.BroadcastPacket(new GotoPacket
+                {
+                    ObjectId = player.Id,
+                    Position = new Position
+                    {
+                        X = player.X,
+                        Y = player.Y
+                    }
+                }, null);
+            }
+            return true;
+        }
+    }
+
     internal class PauseCommand : Command
     {
         public PauseCommand()

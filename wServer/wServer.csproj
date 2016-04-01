@@ -97,8 +97,8 @@
     <Reference Include="MySql.Data">
       <HintPath>..\packages\MySql.Data.6.9.6\lib\net45\MySql.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -460,6 +460,7 @@
     <Compile Include="realm\worlds\GuildHall.cs" />
     <Compile Include="realm\worlds\DailyQuestRoom.cs" />
     <Compile Include="realm\worlds\MadLab.cs" />
+    <Compile Include="realm\worlds\oryxchamber.cs" />
     <Compile Include="realm\worlds\PirateCave.cs" />
     <Compile Include="realm\worlds\SpiderDen.cs" />
     <Compile Include="realm\worlds\SpriteWorld.cs" />
@@ -613,6 +614,8 @@
     <EmbeddedResource Include="realm\worlds\maps\spriteworld.wmap" />
     <EmbeddedResource Include="realm\worlds\maps\nexus_winter.jm" />
     <EmbeddedResource Include="realm\worlds\maps\nexus_summer.jm" />
+    <EmbeddedResource Include="realm\worlds\maps\OryxsChamber.wmap" />
+    <None Include="realm\worlds\maps\OryxsChamber.jm" />
     <None Include="wServer.cfg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

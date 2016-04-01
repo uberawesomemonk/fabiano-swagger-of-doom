@@ -384,7 +384,7 @@ namespace wServer.realm
 
         public void OnPlayerEntered(Player player)
         {
-            player.SendInfo("Welcome to Realm of the Mad God");
+            player.SendInfo("Welcome to Uber-Realms");
             player.SendEnemy("Oryx the Mad God", "You are food for my minions!");
             player.SendInfo("Use [WASDQE] to move; click to shoot!");
             player.SendInfo("Type \"/help\" for more help");

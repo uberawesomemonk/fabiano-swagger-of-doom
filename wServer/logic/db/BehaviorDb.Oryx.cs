@@ -227,7 +227,21 @@ namespace wServer.logic
                         new Follow(0.85, range: 1, coolDown: 0),
                         new Flash(0xfFF0000, 0.5, 9000001)
                         )
-                    )
+                    ),
+                new Threshold(1.0,
+                    new TierLoot(4, ItemType.Ability, 0.3),
+                    new TierLoot(5, ItemType.Ability, 0.02),
+                    new TierLoot(10, ItemType.Armor, 0.03),
+                    new TierLoot(11, ItemType.Armor, 0.02),
+                    new TierLoot(12, ItemType.Armor, 0.01),
+                    new TierLoot(9, ItemType.Weapon, 0.03),
+                    new TierLoot(10, ItemType.Weapon, 0.02),
+                    new TierLoot(11, ItemType.Weapon, 0.01),
+                    new TierLoot(4, ItemType.Ring, 0.05),
+                    new TierLoot(5, ItemType.Ring, 0.01),
+                    new ItemLoot("Potion of Defense", 0.5),
+                    new ItemLoot("Potion of Attack", 0.5)
+            )
             )
             .Init("Ring Element",
                 new State(

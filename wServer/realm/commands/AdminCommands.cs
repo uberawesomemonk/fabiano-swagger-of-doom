@@ -1141,33 +1141,33 @@ namespace wServer.realm.commands
         }
     }
 
-    //class GodMode : ICommand
-    //{
-    //    public string Command { get { return "god"; } }
-    //    public int RequiredRank { get { return 3; } }
+ //   class GodMode : ICommand
+ //   {
+ //       public string Command { get { return "god"; } }
+ //       public int RequiredRank { get { return 3; } }
 
-    //    protected override bool Process(Player player, RealmTime time, string[] args)
-    //    {
+//        protected override bool Process(Player player, RealmTime time, string[] args)
+  //      {
     //        if (player.HasConditionEffect(ConditionEffects.Invincible))
-    //        {
-    //            player.ApplyConditionEffect(new ConditionEffect()
-    //            {
-    //                Effect = ConditionEffectIndex.Invincible,
-    //                DurationMS = 0
-    //            });
-    //            player.SendInfo("Godmode Off");
-    //        }
-    //        else
-    //        {
+      //      {
+        //        player.ApplyConditionEffect(new ConditionEffect()
+          //      {
+            //        Effect = ConditionEffectIndex.Invincible,
+              //      DurationMS = 0
+               // });
+                //player.SendInfo("Godmode Off");
+            //}
+            //else
+            //{
 
-    //            player.ApplyConditionEffect(new ConditionEffect()
-    //            {
-    //                Effect = ConditionEffectIndex.Invincible,
-    //                DurationMS = -1
-    //            });
-    //            player.SendInfo("Godmode On");
-    //        }
-    //    }
+              //  player.ApplyConditionEffect(new ConditionEffect()
+                //{
+                  //  Effect = ConditionEffectIndex.Invincible,
+                    //DurationMS = -1
+               //});
+                //player.SendInfo("Godmode On");
+            //}
+        //}
     //}
     //class StarCommand : ICommand
     //{

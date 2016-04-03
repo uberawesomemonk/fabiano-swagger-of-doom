@@ -84,7 +84,7 @@ To be expanded. These are just cliff notes at this point
 #### Customizing Source Code ####
 
 1. Download and Install [Visual Studio Community](https://www.visualstudio.com/en-us/downloads/download-visual-studio-vs.aspx)
-2. Open the code's .SLN file with Visual Studio
+2. Open the source code's .SLN file (it's in the root/main folder) with Visual Studio
 3. Update the following files with your credentials:
     - AdminPanel/AdminPanel.cs
     - AdminPanel/Login.cs
@@ -93,12 +93,19 @@ To be expanded. These are just cliff notes at this point
     - server/list.cs
     - wServer/Program.cs
     - wServer/wServer.cfg
-11. 
+4. Build the solution to create the executable files you need to deploy:
+    - Right click the `server` project in "Solution Explorer" and select "Set As Startup Project"
+    - From the menu, select `Build` --> `Clean Solution`
+    - Select `Build` --> `Rebuild Solution`
+5. Upload the compiled/built code to your VPS
+    - Open Filezilla and connect to your VPS/Droplet (user account, not root/admin)
+    - Right click and create a new folder with the name "rotmg"
+    - On your PC, navigate to the source code's main folder --> `bin` --> `Debug` 
+    - Drag the contents of the `Debug` folder into the "rotmg" folder showing in Filezilla
     
-7. Download and prepare source code
-    - Client
-    - Compile for Debug
-8. Upload X and X to server
+
+#### Customizing Game Client ####
+
 9. Install software to allow server's to run
     - Mono
     - Screen
@@ -106,7 +113,10 @@ To be expanded. These are just cliff notes at this point
 11. Turn on crontab to restart
 
 
-#### Customizing Game Client ####
+#### Starting/Stopping Server ####
+
+
+#### Automation and Debugging ####
 
 
 ## How Do I Add or Change A Map/Character/Monster? ##

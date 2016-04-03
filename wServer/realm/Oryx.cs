@@ -10,6 +10,7 @@ using wServer.realm.entities;
 using wServer.realm.entities.player;
 using wServer.realm.setpieces;
 using wServer.realm.worlds;
+using db;
 using wServer.networking;
 
 #endregion
@@ -28,7 +29,7 @@ namespace wServer.realm
             Tuple.Create("Skull Shrine", (ISetPiece) new SkullShrine()),
             Tuple.Create("Pentaract", (ISetPiece) new Pentaract()),
             Tuple.Create("Grand Sphinx", (ISetPiece) new Sphinx()),
-            //"Lord of the Lost Lands",
+            //Lord of the Lost Lands",
             //"Hermit God",
             //"Ghost Ship",
             Tuple.Create("Cube God", (ISetPiece) new CubeGod()),
@@ -130,7 +131,9 @@ namespace wServer.realm
                             Tuple.Create("Werelion", 0.1),
                             Tuple.Create("Horned Drake", 0.3),
                             Tuple.Create("Red Spider", 0.1),
-                            Tuple.Create("Black Bat", 0.1)
+                            Tuple.Create("Black Bat", 0.1),
+                            Tuple.Create("Candy Gnome", 0.01)
+
                         })
                 },
                 {
@@ -187,6 +190,7 @@ namespace wServer.realm
                         Tuple.Create("Rock Bot", 0.05),
                         Tuple.Create("Djinn", 0.09),
                         Tuple.Create("Leviathan", 0.09),
+                        Tuple.Create("Mysterios Crystal", 0.01),
                         Tuple.Create("Arena Headless Horseman", 0.01)
                     })
                 },
@@ -224,7 +228,7 @@ namespace wServer.realm
                 "Lich", "Actual Lich",
                 "Ent Ancient", "Actual Ent Ancient",
                 "Phoenix Reborn",
-                "Oasis Giant", "Ghost King", "Cyclops God", "Red Demon",
+                "Oasis Giant", "Cyclops God", "Red Demon",
                 "Skull Shrine", "Cube God", "Grand Sphinx", "Hermit God") != 0) return false;
             RealmClosed = true;
             return true;

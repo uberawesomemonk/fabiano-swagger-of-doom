@@ -301,7 +301,7 @@ AND characters.charId=death.chrId;";
             {
                 cmd = CreateQuery();
                 cmd.CommandText =
-                    "INSERT INTO stats(accId, fame, totalFame, credits, totalCredits) VALUES(@accId, 1000, 1000, 20000, 20000);";
+                    "INSERT INTO stats(accId, fame, totalFame, credits, totalCredits) VALUES(@accId, 1000, 1000, 10000, 10000);";
                 cmd.Parameters.AddWithValue("@accId", accId);
                 cmd.ExecuteNonQuery();
 
@@ -540,7 +540,7 @@ SELECT credits FROM stats WHERE accId=@accId;";
         public void ReadGiftCodes(Account acc)
         {
             var cmd = CreateQuery();
-            cmd.CommandText = "SELECT * FROM giftcodes WHERE accId=@accId;";
+            cmd.CommandText = "SELECT * FROM giftCodes WHERE accId=@accId;";
             cmd.Parameters.AddWithValue("@accId", acc.AccountId);
             acc.GiftCodes = new List<string>();
             using (var rdr = cmd.ExecuteReader())

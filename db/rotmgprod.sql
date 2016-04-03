@@ -159,10 +159,10 @@ CREATE TABLE IF NOT EXISTS `classstats` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `dailyquests`
+-- Tabellenstruktur für Tabelle `dailyQuests`
 --
 
-CREATE TABLE IF NOT EXISTS `dailyquests` (
+CREATE TABLE IF NOT EXISTS `dailyQuests` (
   `accId` int(11) NOT NULL,
   `goals` varchar(512) NOT NULL,
   `tier` int(11) NOT NULL DEFAULT '1',
@@ -198,10 +198,10 @@ CREATE TABLE IF NOT EXISTS `death` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `giftcodes`
+-- Tabellenstruktur für Tabelle `giftCodes`
 --
 
-CREATE TABLE IF NOT EXISTS `giftcodes` (
+CREATE TABLE IF NOT EXISTS `giftCodes` (
   `code` varchar(128) NOT NULL,
   `content` varchar(512) NOT NULL,
   `accId` int(11) NOT NULL DEFAULT '0',
@@ -343,10 +343,10 @@ CREATE TABLE IF NOT EXISTS `stats` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `thealchemist`
+-- Tabellenstruktur für Tabelle `theAlchemist`
 --
 
-CREATE TABLE IF NOT EXISTS `thealchemist` (
+CREATE TABLE IF NOT EXISTS `theAlchemist` (
   `id` int(11) NOT NULL,
   `title` varchar(512) NOT NULL,
   `description` varchar(512) DEFAULT NULL,

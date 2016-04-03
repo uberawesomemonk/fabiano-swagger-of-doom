@@ -106,17 +106,31 @@ To be expanded. These are just cliff notes at this point
 
 #### Customizing Game Client ####
 
-9. Install software to allow server's to run
-    - Mono
-    - Screen
-10. Start server
-11. Turn on crontab to restart
+1.
 
 
 #### Starting/Stopping Server ####
 
+1. Use PuTTY to SSH into your VPS (user account, not root/admin)
+2. Install packages necessary to run server executables:
+    - `sudo apt-get install mono-complete`
+    - `sudo apt-get install screen`
+3. Start the RotMG Server
+    - `sudo screen -S server`
+    - `cd /home/{username}/rotmg/`
+    - `mono ./server.exe`
+    - Detach from the screen terminal (<kbd>CTRL</kbd>+<kbd>a</kbd>, <kbd>CTRL</kbd>+<kbd>d</kbd>)
+4. Start the RotMG wServer
+    - `sudo screen -S wserver`
+    - `cd /home/{username}/rotmg`
+    - `mono ./wServer.exe`
+    - Detach from the screen terminal (<kbd>CTRL</kbd>+<kbd>a</kbd>, <kbd>CTRL</kbd>+<kbd>d</kbd>)
+5. You should now be able to connect to the game using your modified game client! If you're not able to, check out the Debugging section of the readme.
+
 
 #### Automation and Debugging ####
+
+11. Turn on crontab to restart
 
 
 ## How Do I Add or Change A Map/Character/Monster? ##

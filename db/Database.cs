@@ -540,7 +540,7 @@ SELECT credits FROM stats WHERE accId=@accId;";
         public void ReadGiftCodes(Account acc)
         {
             var cmd = CreateQuery();
-            cmd.CommandText = "SELECT * FROM giftcodes WHERE accId=@accId;";
+            cmd.CommandText = "SELECT * FROM giftCodes WHERE accId=@accId;";
             cmd.Parameters.AddWithValue("@accId", acc.AccountId);
             acc.GiftCodes = new List<string>();
             using (var rdr = cmd.ExecuteReader())

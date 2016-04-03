@@ -198,10 +198,10 @@ CREATE TABLE IF NOT EXISTS `death` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `giftcodes`
+-- Tabellenstruktur für Tabelle `giftCodes`
 --
 
-CREATE TABLE IF NOT EXISTS `giftcodes` (
+CREATE TABLE IF NOT EXISTS `giftCodes` (
   `code` varchar(128) NOT NULL,
   `content` varchar(512) NOT NULL,
   `accId` int(11) NOT NULL DEFAULT '0',

@@ -40,7 +40,7 @@ Note, there are many different ways to "host" a server for yourself and your fri
 
 ### Local Machine (Hamachi) ###
 
-- Guide coming soon
+- [How to set up Fabiano's Server (Local)](http://www.mpgh.net/forum/showthread.php?t=959037)
 
 ### Linux Virtual Private Server (VPS) ###
 
@@ -106,6 +106,8 @@ To be expanded. These are just cliff notes at this point
 
 #### Customizing Game Client ####
 
+This section was influenced largely by this [flashhacking.net thread](http://flashacking.net/showthread.php?7540-Tutorial-how-to-decompile-recompile-a-swf-file-with-rabcdasm).
+
 1.
 
 
@@ -129,6 +131,8 @@ To be expanded. These are just cliff notes at this point
 
 
 #### Automation and Debugging ####
+
+Debugging is incredibly important. When things go wrong, it's important that you know how/where/why things went wrong so you can begin to fix the problem.
 
 11. Turn on crontab to restart
 

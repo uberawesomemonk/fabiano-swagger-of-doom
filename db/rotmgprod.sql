@@ -343,10 +343,10 @@ CREATE TABLE IF NOT EXISTS `stats` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `thealchemist`
+-- Tabellenstruktur für Tabelle `theAlchemist`
 --
 
-CREATE TABLE IF NOT EXISTS `thealchemist` (
+CREATE TABLE IF NOT EXISTS `theAlchemist` (
   `id` int(11) NOT NULL,
   `title` varchar(512) NOT NULL,
   `description` varchar(512) DEFAULT NULL,

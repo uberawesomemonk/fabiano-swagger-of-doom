@@ -31,7 +31,7 @@ namespace server.account
                 if (CheckAccount(acc = db.Verify(Query["guid"], Query["password"], Program.GameData), db, false))
                 {
                     var cmd = db.CreateQuery();
-                    cmd.CommandText = "SELECT * FROM thealchemist WHERE startTime <= now() AND endTime >= now() AND id=@gameId;";
+                    cmd.CommandText = "SELECT * FROM theAlchemist WHERE startTime <= now() AND endTime >= now() AND id=@gameId;";
                     cmd.Parameters.AddWithValue("@gameId", Query["gameId"]);
                     Random rand = new Random();
                     List<int> gifts = new List<int>();

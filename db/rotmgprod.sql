@@ -159,10 +159,10 @@ CREATE TABLE IF NOT EXISTS `classstats` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `dailyquests`
+-- Tabellenstruktur für Tabelle `dailyQuests`
 --
 
-CREATE TABLE IF NOT EXISTS `dailyquests` (
+CREATE TABLE IF NOT EXISTS `dailyQuests` (
   `accId` int(11) NOT NULL,
   `goals` varchar(512) NOT NULL,
   `tier` int(11) NOT NULL DEFAULT '1',

@@ -1,6 +1,5 @@
 ﻿#region
 
-using System.Collections.Generic;
 using db;
 using wServer.networking.cliPackets;
 using wServer.networking.svrPackets;

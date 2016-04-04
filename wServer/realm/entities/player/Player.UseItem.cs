@@ -3,8 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Linq;
-using db;
 using MySql.Data.MySqlClient;
 using wServer.networking;
 using wServer.networking.cliPackets;

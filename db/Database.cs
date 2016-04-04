@@ -5,11 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using db.data;
-using Ionic.Zlib;
 using MySql.Data.MySqlClient;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 
 #endregion
 

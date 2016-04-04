@@ -4,8 +4,6 @@ using db;
 using MySql.Data.MySqlClient;
 using System;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Threading.Tasks;
 using wServer.networking.cliPackets;
 using wServer.realm;
 using wServer.realm.entities;

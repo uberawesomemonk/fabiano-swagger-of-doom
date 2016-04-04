@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using wServer.networking;
 using wServer.networking.svrPackets;
-using wServer.realm.entities;
 using wServer.realm.entities.player;
 using wServer.realm.setpieces;
 using db;

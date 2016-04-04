@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace wServer.networking.svrPackets
+﻿namespace wServer.networking.svrPackets
 {
     public class UpdatePacket : ServerPacket
     {

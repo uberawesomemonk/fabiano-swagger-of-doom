@@ -2,7 +2,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using db;
 using MySql.Data.MySqlClient;
 using wServer.networking;
 using wServer.realm.entities;

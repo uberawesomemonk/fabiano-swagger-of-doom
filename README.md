@@ -22,7 +22,7 @@ Uber Realms is a private [Realm of the Mad God](http://uber-realms.com/download.
 ## Tutorials ##
 
 - [How to set up Fabiano's Server On Your Local Machine (Hamachi)](http://www.mpgh.net/forum/showthread.php?t=959037)
-- [How to Host Server on a Linux Virtual Private Server (VPS)](/blob/master/docs/how-to-host-server-on-linux-virtual-private-server-vps.md)
+- [How to Host Server on a Linux Virtual Private Server (VPS)](/docs/how-to-host-server-on-linux-virtual-private-server-vps.md)
 - How Do I Add or Change A Map/Character/Monster?
 - Coming soon
 

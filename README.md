@@ -16,30 +16,21 @@ Uber Realms is a private [Realm of the Mad God](http://uber-realms.com/download.
 
 ### Contact Us ###
 
-1. [Uber-Realms Forum](http://uber-realms.com/forum)
+[Uber-Realms Forum](http://uber-realms.com/forum)
 
 
-## ~~ Index ~~ ##
+## Tutorials ##
 
-- Frequently Asked Questions (FAQ)
-- Self-Hosting
-	- Local Machine (Hamachi)
-	- Linux Virtual Private Server (VPS)
-- Modifying Existing Code
-- Credits
+- [How to set up Fabiano's Server On Your Local Machine (Hamachi)](http://www.mpgh.net/forum/showthread.php?t=959037)
+- [How to Host Server on a Linux Virtual Private Server (VPS)](/blob/master/docs/how-to-host-server-on-linux-virtual-private-server-vps.md)
+- How Do I Add or Change A Map/Character/Monster?
+- Coming soon
 
 
 ## Frequently Asked Questions (FAQ) ##
 
 **Example question?**
 *Exameple Answer*
-
-## Tutorials ##
-
-- [How to set up Fabiano's Server On Your Local Machine (Hamachi)](http://www.mpgh.net/forum/showthread.php?t=959037)
-- [How to Host Server on a Linux Virtual Private Server (VPS)](/docs/img/open-ports.png?raw=true)
-- How Do I Add or Change A Map/Character/Monster?
-- Coming soon
 
 
 ##Additional License information

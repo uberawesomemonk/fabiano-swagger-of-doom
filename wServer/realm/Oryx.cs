@@ -132,7 +132,7 @@ namespace wServer.realm
                             Tuple.Create("Horned Drake", 0.3),
                             Tuple.Create("Red Spider", 0.1),
                             Tuple.Create("Black Bat", 0.1),
-                            Tuple.Create("Candy Gnome", 0.01)
+                            Tuple.Create("Candy Gnome", 0.03)
 
                         })
                 },
@@ -190,8 +190,8 @@ namespace wServer.realm
                         Tuple.Create("Rock Bot", 0.05),
                         Tuple.Create("Djinn", 0.09),
                         Tuple.Create("Leviathan", 0.09),
-                        Tuple.Create("Mysterios Crystal", 0.01),
-                        Tuple.Create("Arena Headless Horseman", 0.01)
+                        Tuple.Create("Mysterios Crystal", 0.02),
+                        Tuple.Create("Arena Headless Horseman", 0.02)
                     })
                 },
             };

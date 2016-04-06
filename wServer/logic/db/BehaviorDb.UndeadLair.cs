@@ -14,6 +14,7 @@ namespace wServer.logic
         private _ UndeadLair = () => Behav()
             .Init("Septavius the Ghost God",
                 new State(
+                    new DropPortalOnDeath("Glowing Realm Portal", 100),
                     new State("Idle",
                         new PlayerWithinTransition(15, "Cycle")
                     ),
@@ -455,6 +456,28 @@ namespace wServer.logic
                     new EggLoot(EggRarity.Legendary, 0.002)
                 )
             )
+
+        .Init("Lair Skeleton Mage",
+            new State(
+                 new Wander(0.5),
+                 new Shoot(10, 3, 20, angleOffset: 0 / 2, projectileIndex: 0, coolDown: 1000)
+                 )
+            )
+
+        .Init("Lair Skeleton King",
+            new State(
+                 new Wander(0.5),
+                 new Shoot(10, 3, 20, angleOffset: 0 / 2, projectileIndex: 0, coolDown: 1000)
+                 )
+            )
+
+        .Init("Lair Skeleton",
+            new State(
+                 new Wander(0.5),
+                 new Shoot(10, 3, 20, angleOffset: 0 / 2, projectileIndex: 0, coolDown: 1000)
+                 )
+            )
+
             .Init("Ghost Warrior of Septavius",
                 new State(
                     new Shoot(10, coolDown: new Cooldown(2000, 1000)),

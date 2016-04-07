@@ -12,7 +12,7 @@ namespace wServer.realm.worlds
         public IvoryWyvern()
         {
             Name = "Ivory Wyvern Portal";
-            ClientWorldName = "The Ivory Wyvern";
+            ClientWorldName = "Ivory Wyvern";
             Background = 0;
             AllowTeleport = false;
             Difficulty = 5;

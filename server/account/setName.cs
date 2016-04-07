@@ -1,10 +1,6 @@
 ﻿#region
 
-using System.Collections.Specialized;
-using System.IO;
-using System.Net;
 using System.Text;
-using System.Web;
 using db;
 using MySql.Data.MySqlClient;
 using System.Text.RegularExpressions;

@@ -10,8 +10,6 @@ using wServer.realm.entities;
 using wServer.realm.entities.player;
 using wServer.realm.setpieces;
 using wServer.realm.worlds;
-using db;
-using wServer.networking;
 
 #endregion
 

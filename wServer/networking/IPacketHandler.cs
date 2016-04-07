@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using log4net;
 using wServer.networking.cliPackets;
-using wServer.networking.svrPackets;
 using FailurePacket = wServer.networking.svrPackets.FailurePacket;
 using wServer.realm;
 

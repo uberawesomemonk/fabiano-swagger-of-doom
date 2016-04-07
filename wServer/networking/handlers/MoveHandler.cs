@@ -2,7 +2,6 @@
 
 using wServer.networking.cliPackets;
 using wServer.realm;
-using wServer.realm.entities.player;
 
 #endregion
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net;
 using System.Text;
-using System.Windows.Forms;
 using MetroFramework.Forms;
 
 namespace Client_Updater

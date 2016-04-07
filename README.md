@@ -16,53 +16,21 @@ Uber Realms is a private [Realm of the Mad God](http://uber-realms.com/download.
 
 ### Contact Us ###
 
-1. [Uber-Realms Forum](http://uber-realms.com/forum)
+[Uber-Realms Forum](http://uber-realms.com/forum)
 
 
-## ~~ Index ~~ ##
+## Tutorials ##
 
-- Frequently Asked Questions (FAQ)
-- Self-Hosting
-	- Local Machine (Hamachi)
-	- Linux Virtual Private Server (VPS)
-- Modifying Existing Code
-- Credits
+- [How to set up Fabiano's Server On Your Local Machine (Hamachi)](http://www.mpgh.net/forum/showthread.php?t=959037)
+- [How to Host Server on a Linux Virtual Private Server (VPS)](/docs/how-to-host-server-on-linux-virtual-private-server-vps.md)
+- How Do I Add or Change A Map/Character/Monster?
+- Coming soon
 
 
 ## Frequently Asked Questions (FAQ) ##
 
 **Example question?**
 *Exameple Answer*
-
-## How Do I Host A Private Server? ##
-
-Note, there are many different ways to "host" a server for yourself and your friends to play on. The easiest option is to "host" locally. The harder option, the one that will take money, time, and familiarity with servers, is to host using a "virtual private server". However, you will notice less lag, and be able to support more active/online users.
-
-### Local Machine (Hamachi) ###
-
-- Guide coming soon
-
-### Linux Virtual Private Server (VPS) ###
-
-To be expanded. These are just cliff notes at this point
-
-Requirements:
-- Visual Studio
-
-1. Digital Ocean Droplet:
-    - Ubuntu 14.04
-    - 2GB RAM, 40GB SSD, 1TB Transfer
-2. Update credentials at these file locations:
-    - AdminPanel/AdminPanel.cs
-    - server/Program.cs
-    - server/server.cfg
-    - wServer/Program.cs
-    - wServer/wServer.cfg
-
-
-## How Do I Add or Change A Map/Character/Monster? ##
-
-- Coming soon
 
 
 ##Additional License information

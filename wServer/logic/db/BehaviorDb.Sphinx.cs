@@ -11,7 +11,7 @@ namespace wServer.logic
             .Init("Grand Sphinx",
                     new State(
                         new HpLessOrder(50, 0.15, "Horrid Reaper", "Go away"),
-                        new DropPortalOnDeath("Tomb of the Ancients Portal", 35),
+                        new DropPortalOnDeath("Tomb of the Ancients Portal", 90),
                         new Spawn("Horrid Reaper", maxChildren: 8, initialSpawn: 1),
                         new State("BlindAttack",
                             new Wander(0.0005),

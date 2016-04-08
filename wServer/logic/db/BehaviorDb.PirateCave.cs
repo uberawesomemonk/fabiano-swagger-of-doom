@@ -13,6 +13,7 @@ namespace wServer.logic
         private _ PirateCave = () => Behav()
         .Init("Dreadstump the Pirate King",
             new State(
+                new DropPortalOnDeath("Glowing Realm Portal", 100),
                 new State("Idle",
                     new PlayerWithinTransition(15, "swiggity")
                 ),

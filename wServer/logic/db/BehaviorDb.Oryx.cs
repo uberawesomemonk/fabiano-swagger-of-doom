@@ -60,7 +60,6 @@ namespace wServer.logic
                         new Taunt(1, 6000, "Puny mortals! My {HP} HP will annihilate you!")
                     )
                 ),
-                new Threshold(0.80,
                     new ItemLoot("Potion of Vitality", 1),
                     new ItemLoot("Potion of Attack", 0.3),
                     new ItemLoot("Potion of Defense", 0.3),
@@ -74,7 +73,6 @@ namespace wServer.logic
                     new TierLoot(12, ItemType.Armor, 0.06),
                     new TierLoot(13, ItemType.Armor, 0.05),
                     new TierLoot(5, ItemType.Ring, 0.06)
-                )
             )
             .Init("Henchman of Oryx",
                 new State(
@@ -225,7 +223,6 @@ namespace wServer.logic
                         new Flash(0xfFF0000, 0.5, 9000001)
                         )
                     ),
-                    new Threshold(0.80,
                     new TierLoot(4, ItemType.Ability, 0.3),
                     new TierLoot(5, ItemType.Ability, 0.02),
                     new TierLoot(10, ItemType.Armor, 0.03),
@@ -238,7 +235,7 @@ namespace wServer.logic
                     new TierLoot(5, ItemType.Ring, 0.01),
                     new ItemLoot("Potion of Defense", 0.5),
                     new ItemLoot("Potion of Attack", 0.5)
-            ))
+            )
             
             .Init("Ring Element",
                 new State(

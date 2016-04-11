@@ -241,6 +241,13 @@ namespace wServer.logic
                         ),
                     new Decay(130000)
                     ),
+                new TierLoot(8, ItemType.Weapon, 0.02),
+                new ItemLoot("Ring of the Covetous Heart", 0.001),
+                new ItemLoot("The Phylactery", 0.001),
+                new ItemLoot("Soulless Robe", 0.001),
+                new ItemLoot("Tincture of Dexterity", 0.06),
+                new ItemLoot("Soul of the Bearer", 0.001),
+                new ItemLoot("Tincture of Life", 0.04),
                 new ItemLoot("Tincture of Defense", 0.02),
                 new ItemLoot("Orange Drake Egg", 0.06),
                 new ItemLoot("Magic Potion", 0.03)
@@ -266,11 +273,11 @@ namespace wServer.logic
                     new Decay(90000)
                     ),
                 new TierLoot(8, ItemType.Weapon, 0.02),
-                new ItemLoot("Magic Potion", 0.02),
-                new ItemLoot("Ring of Magic", 0.02),
-                new ItemLoot("Ring of Attack", 0.02),
+                new ItemLoot("Ring of the Covetous Heart", 0.001),
+                new ItemLoot("The Phylactery", 0.001),
+                new ItemLoot("Soulless Robe", 0.001),
                 new ItemLoot("Tincture of Dexterity", 0.06),
-                new ItemLoot("Tincture of Mana", 0.09),
+                new ItemLoot("Soul of the Bearer", 0.001),
                 new ItemLoot("Tincture of Life", 0.04)
             )
             .Init("Mummy",

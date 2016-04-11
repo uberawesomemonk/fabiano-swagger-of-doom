@@ -1,6 +1,7 @@
 #region
 
 using wServer.logic.behaviors;
+using wServer.logic.loot;
 using wServer.logic.transitions;
 
 #endregion
@@ -1521,7 +1522,33 @@ namespace wServer.logic
                             )
                         )
                         )
-                    )
+                    ),
+                                                    new Threshold(0.3,
+                    new ItemLoot("Potion of Defense", 1)
+                ),
+                new Threshold(0.2,
+                    new ItemLoot("Potion of Speed", 0.5),
+                    new ItemLoot("Potion of Wisdom", 0.5)
+                ),
+                new Threshold(0.1,
+                    new ItemLoot("Tablet of the King's Avatar", 0.001),
+
+                    new TierLoot(11, ItemType.Weapon, 0.005),
+                    new TierLoot(11, ItemType.Armor, 0.005),
+                    new TierLoot(12, ItemType.Armor, 0.001),
+
+                    new TierLoot(10, ItemType.Weapon, 0.01),
+                    new TierLoot(10, ItemType.Armor, 0.01),
+
+                    new TierLoot(9, ItemType.Weapon, 0.02),
+                    new TierLoot(5, ItemType.Ability, 0.02),
+                    new TierLoot(9, ItemType.Armor, 0.02),
+
+                    new ItemLoot("Potion of Attack", 0.1),
+                    new ItemLoot("Potion of Vitality", 0.1),
+                    new ItemLoot("Potion of Dexterity", 0.1)
+
+                )
             )
             .Init("shtrs shadowmans",
                 new State(

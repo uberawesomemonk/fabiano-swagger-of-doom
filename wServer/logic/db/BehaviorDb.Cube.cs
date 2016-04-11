@@ -21,7 +21,6 @@ namespace wServer.logic
                              new Spawn("Cube Defender", maxChildren: 5, initialSpawn: 5, coolDown: 100000),
                              new Spawn("Cube Blaster", maxChildren: 5, initialSpawn: 5, coolDown: 100000)
                 ),
-                    new Threshold(0.80,
                     new TierLoot(3, ItemType.Ring, 0.2),
                     new TierLoot(7, ItemType.Armor, 0.2),
                     new TierLoot(8, ItemType.Weapon, 0.2),
@@ -39,7 +38,7 @@ namespace wServer.logic
                     new ItemLoot("Dirk of Cronus", 0.01),
                     new ItemLoot("Potion of Dexterity", 0.5),
                     new ItemLoot("Potion of Attack", 0.5)
-                ))
+                )
             
             .Init("Cube Overseer",
                 new State(

@@ -1322,7 +1322,7 @@ VALUES(@accId, @petId, @objType, @skinName, @skin, @rarity, @maxLevel, @abilitie
                     if(lastSeen == DateTime.MinValue)
                         return false;
 
-                    int timeInSec = 600 - (int)(DateTime.UtcNow - lastSeen).TotalSeconds;
+                    int timeInSec = 30 - (int)(DateTime.UtcNow - lastSeen).TotalSeconds;
                     bool accInUse = rdr.GetInt32("accountInUse") == 1;
                     if (accInUse && timeInSec > 0)
                     {

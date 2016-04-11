@@ -6,7 +6,7 @@ namespace AVATAR
 {
     partial class BehaviorDb
     {
-        priavte wServer.logic.BehaviorDb.priavte wServer.logic.BehaviorDb._ Avatar = () => wServer.logic.BehaviorDb.Behav()
+        priavte wServer.logic.BehaviorDb.priavte (wServer.logic.BehaviorDb._ Avatar = () => wServer.logic.BehaviorDb.Behav()
             .Init("shtrs Defense System",
                 new wServer.logic.State(
                     new DropPortalOnDeath("The Shatters", percent: 65, dropDelaySec: 2, XAdjustment: 0, YAdjustment: 2, PortalDespawnTimeSec: 70),
@@ -285,6 +285,6 @@ namespace AVATAR
                         ),
                     new wServer.logic.State("flashing")
                     )
-            );
+            ));
     }
 }

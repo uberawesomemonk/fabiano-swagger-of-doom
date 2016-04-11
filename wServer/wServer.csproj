@@ -152,6 +152,7 @@
     <Compile Include="logic\behaviors\PetBehaviors\PetBehavior.cs" />
     <Compile Include="logic\behaviors\PetBehaviors\PetShoot.cs" />
     <Compile Include="logic\behaviors\RemoveEntity.cs" />
+    <Compile Include="logic\db\BehaviorDb.Trench.cs" />
     <Compile Include="logic\db\BehaviorDb.Abyss.cs" />
     <Compile Include="logic\db\BehaviorDb.CandyLand.cs" />
     <Compile Include="logic\db\BehaviorDb.Draconis.cs" />
@@ -611,14 +612,16 @@
     <EmbeddedResource Include="realm\worlds\maps\candyland.wmap" />
     <EmbeddedResource Include="realm\worlds\maps\forestmaze.wmap" />
     <EmbeddedResource Include="realm\worlds\maps\pcave.wmap" />
-    <EmbeddedResource Include="realm\worlds\maps\spiderden.wmap" />
-    <EmbeddedResource Include="realm\worlds\maps\spriteworld.wmap" />
     <EmbeddedResource Include="realm\worlds\maps\nexus_winter.jm" />
     <EmbeddedResource Include="realm\worlds\maps\nexus_summer.jm" />
     <EmbeddedResource Include="realm\worlds\maps\OryxsChamber.wmap" />
     <EmbeddedResource Include="realm\worlds\maps\IvoryWyvern.wmap" />
     <None Include="realm\worlds\maps\IvoryWyvern.jm" />
     <None Include="realm\worlds\maps\OryxsChamber.jm" />
+    <None Include="realm\worlds\maps\spiderden.jm" />
+    <EmbeddedResource Include="realm\worlds\maps\spiderden.wmap" />
+    <None Include="realm\worlds\maps\spriteworld.jm" />
+    <EmbeddedResource Include="realm\worlds\maps\spriteworld.wmap" />
     <None Include="wServer.cfg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -29,9 +29,10 @@ namespace wServer.realm
             Tuple.Create("Skull Shrine", (ISetPiece) new SkullShrine()),
             Tuple.Create("Pentaract", (ISetPiece) new Pentaract()),
             Tuple.Create("Grand Sphinx", (ISetPiece) new Sphinx()),
+            Tuple.Create("Ghost Ship", (ISetPiece) new GhostShip()),
+            Tuple.Create("Hermit God", (ISetPiece) new Hermit()),
+            Tuple.Create("shtrs Defense System", (ISetPiece) new Avatar()),
             //Lord of the Lost Lands",
-            //"Hermit God",
-            //"Ghost Ship",
             Tuple.Create("Cube God", (ISetPiece) new CubeGod()),
         };
 
@@ -129,10 +130,10 @@ namespace wServer.realm
                             Tuple.Create("Metal Golem", 0.05),
                             Tuple.Create("Clockwork Golem", 0.05),
                             Tuple.Create("Werelion", 0.1),
-                            Tuple.Create("Horned Drake", 0.3),
+                            Tuple.Create("Horned Drake", 0.29),
                             Tuple.Create("Red Spider", 0.1),
                             Tuple.Create("Black Bat", 0.1),
-                            Tuple.Create("Candy Gnome", 0.03)
+                            Tuple.Create("Candy Gnome", 0.01)
 
                         })
                 },
@@ -186,12 +187,12 @@ namespace wServer.realm
                         Tuple.Create("Beholder", 0.1),
                         Tuple.Create("Flying Brain", 0.1),
                         Tuple.Create("Slime God", 0.09),
-                        Tuple.Create("Ghost God", 0.09),
+                        Tuple.Create("Ghost God", 0.08),
                         Tuple.Create("Rock Bot", 0.05),
-                        Tuple.Create("Djinn", 0.09),
-                        Tuple.Create("Leviathan", 0.09),
-                        Tuple.Create("Mysterios Crystal", 0.02),
-                        Tuple.Create("Arena Headless Horseman", 0.02)
+                        Tuple.Create("Djinn", 0.08),
+                        Tuple.Create("Leviathan", 0.08),
+                        Tuple.Create("Mysterious Crystal", 0.01),
+                        Tuple.Create("Arena Headless Horseman", 0.01)
                     })
                 },
             };
@@ -864,6 +865,16 @@ namespace wServer.realm
                     "You naive imbecile, {PLAYER}! Without my Hermit God, Dreadstump is free to roam the seas without fear!"
                 }
             }),
+
+                        Tuple.Create("shtrs Defense System", new TauntData
+            {
+                spawn = new[]
+                {
+                    "My Avatar will terrorize you pathetic peasants!",
+                    "An Avatar has entered the Realm."
+                }
+                        }),
+
             Tuple.Create("Ghost Ship", new TauntData
             {
                 spawn = new[]

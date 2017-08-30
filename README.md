@@ -1,13 +1,40 @@
-﻿# DJB Trio
+﻿# DJB Code
 
 This source is a fork of [Fabiano Swagger of Doom (FSOD)](https://github.com/ossimc82/fabiano-swagger-of-doom). Over 
 time, we've also added a decompiled SWF Client source that 
 [can be found here](https://github.com/kaos00723/RotMG_Client_27.7.X2). Information about how to modify, build, and
 deploy the `Server`, `WorldServer` and `Client` are included below.
 
-## About
+## Contributing
 
-## Project Layout
+1. Fork this repository
+2. Clone the forked repository
+3. Before committing code, create a branch-per-feature, or branch-per-bug
+4. Create pull requests against `djb-code\dev`
+
+```
+.
+├── master
+│   ├── release/v0.1.1
+│   └── release/v0.1.0
+└── dev
+    ├── {user}/name-of-feature-or-bugfix
+    ├── {user}/name-of-feature-or-bugfix
+    └── {user}/name-of-feature-or-bugfix
+```
+
+5. In an ideal world, someone will review your pull request, and after some back and forth, it will be merged into the `master` branch. This will trigger an automated build, test, and deploy to the Production Environment. Commit messages will be used to build a release description.
+
+## Getting Started
+
+### App Server & World Server
+
+#### Requirements
+- VisualStudio Community 2017
+- Local MySQL Database (Or a remote one you can connect to)
+
+#### Overview
+
 ```
 .
 ├── Admin Panel
@@ -16,14 +43,16 @@ deploy the `Server`, `WorldServer` and `Client` are included below.
 ├── DungeonGen
 ├── Json2Wmap
 ├── server
+    ├── server.cfg
+    └── server.local.cfg
 ├── terrain
-├── wServer
-.   ├── file21.ext
-    ├── file22.ext
-    └── file23.ext
+└── wServer
+    ├── wServer.cfg
+    └── wServer.local.cfg
 ```
 
-## Configuration
+
+### Configuration
 
 *Client Source:*
 

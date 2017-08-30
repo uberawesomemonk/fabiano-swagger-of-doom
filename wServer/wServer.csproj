@@ -617,6 +617,9 @@
     <EmbeddedResource Include="realm\worlds\maps\IvoryWyvern.wmap" />
     <None Include="realm\worlds\maps\IvoryWyvern.jm" />
     <None Include="realm\worlds\maps\OryxsChamber.jm" />
+    <None Include="wServer.local.cfg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="wServer.cfg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

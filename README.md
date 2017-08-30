@@ -8,11 +8,10 @@ deploy the `Server`, `WorldServer` and `Client` are included below.
 ## About
 
 ## Project Layout
-
+```
 .
 ├── Admin Panel
 ├── Behavior Converter
-├── Client Updater
 ├── db
 ├── DungeonGen
 ├── Json2Wmap
@@ -22,14 +21,15 @@ deploy the `Server`, `WorldServer` and `Client` are included below.
 .   ├── file21.ext
     ├── file22.ext
     └── file23.ext
+```
 
 ## Configuration
 
 *Client Source:*
 
-`RSA_PUBLIC_KEY`: `com/company/assembleegameclient/parameters/Parameters.as`
-`SERVER:String`: `kabam/rotmg/application/impl/ProductionSetup.as`
-`ENCRYPTED:String`: `kabam/rotmg/application/impl/ProductionSetup.as`
+- `RSA_PUBLIC_KEY`: `com/company/assembleegameclient/parameters/Parameters.as`
+- `SERVER:String`: `kabam/rotmg/application/impl/ProductionSetup.as`
+- `ENCRYPTED:String`: `kabam/rotmg/application/impl/ProductionSetup.as`
 
 `wserver/networking/Client.cs`
 - The build version of the client needs to match the version the server expects
@@ -54,10 +54,11 @@ We've used these in whole or in part to help us at various points.
 
 ## License Information
 
-*You are free to use this source as long as you credit the following contributers:*
+You are free to use this source as long as you credit the following contributers:
 
-_Contributors to "Uber Realms" Source:_
+##### _Contributors to "Uber Realms" Source:_
+
 csengineer13, uberawesomemonk
 
-_Contributors to "Fabiano Swagger of Doom" Source:_
+##### _Contributors to "Fabiano Swagger of Doom" Source:_
 ossimc82 | Fabian Fischer, C453, Trapped, Donran, creepylava, Krazyshank, Barm, Nilly, sebastianfra12, Kieron

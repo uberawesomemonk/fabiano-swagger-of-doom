@@ -58,12 +58,19 @@ namespace server
 
             if (RunPreCheck(port))
             {
-                listener = new HttpListener();
-                listener.Prefixes.Add($"http://*:{port}/");
-                listener.Start();
+                try
+                {
+                    listener = new HttpListener();
+                    listener.Prefixes.Add($"http://*:{port}/");
+                    //listener.Prefixes.Add($"http://localhost:{port}/");
+                    listener.Start();
 
-                listener.BeginGetContext(ListenerCallback, null);
-                Logger.Info($"Listening at port {port}...");
+                    listener.BeginGetContext(ListenerCallback, null);
+                    Logger.Info($"Listening at port {port}...");
+                }catch(Exception ex)
+                {
+                    Logger.Error($"Error: {ex.Message}");
+                }
             }
             else
                 Logger.Error($"Port {port} is occupied. Can't start listening...\nPress ESC to exit.");

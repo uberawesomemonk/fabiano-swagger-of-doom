@@ -1,51 +1,63 @@
-# Uber Realms #
+﻿# DJB Trio
 
-Uber Realms is a private [Realm of the Mad God](http://uber-realms.com/download.html) (RotMG) server. In recent years, development and updates for RotMG have rapidly decreased. The global user base is still over 100,000 active weekly players, but there is a strong desire for new content and improved game play. The goal of this project is to:
+This source is a fork of [Fabiano Swagger of Doom (FSOD)](https://github.com/ossimc82/fabiano-swagger-of-doom). Over 
+time, we've also added a decompiled SWF Client source that 
+[can be found here](https://github.com/kaos00723/RotMG_Client_27.7.X2). Information about how to modify, build, and
+deploy the `Server`, `WorldServer` and `Client` are included below.
 
-- Make it easier for others to host private RotMG Servers (hosted and local)
-- Clean up the existing code to make it less error prone and more efficient
-- To provide a fun, more frequently updated, version of the RotMG Official Servers
+## About
+
+## Project Layout
+
+.
+├── Admin Panel
+├── Behavior Converter
+├── Client Updater
+├── db
+├── DungeonGen
+├── Json2Wmap
+├── server
+├── terrain
+├── wServer
+.   ├── file21.ext
+    ├── file22.ext
+    └── file23.ext
+
+## Configuration
+
+*Client Source:*
+
+`RSA_PUBLIC_KEY`: `com/company/assembleegameclient/parameters/Parameters.as`
+`SERVER:String`: `kabam/rotmg/application/impl/ProductionSetup.as`
+`ENCRYPTED:String`: `kabam/rotmg/application/impl/ProductionSetup.as`
+
+`wserver/networking/Client.cs`
+- The build version of the client needs to match the version the server expects
+- `You should update dat0.xml and dat1.xml with any new items from the client XML's.`
+
+## Resources
+
+### Repositories of Note:
+
+Repositories of other/similar projects. We're not the only people running and customizing ROTMG ;)
+
+* [Nilly's Realm Server & World Server](https://github.com/cp-nilly/NR-CORE)
+* [Nilly's Realm Client](https://github.com/cp-nilly/NR-27.7.X13)
+
+### Useful Tutorials:
+
+We've used these in whole or in part to help us at various points.
+
+* [How to host using a Linux VPS](http://www.mpgh.net/forum/showthread.php?t=1101434)
+* [27.7.X2 AS3 Client to FSOD](http://www.mpgh.net/forum/showthread.php?t=1163271)
 
 
-## How Can I Play? ##
+## License Information
 
-- Visit [Uber Realm's PLAY! Page](http://uber-realms.com/play/)
-- Register an account
-- Sign in, and play! (:
+*You are free to use this source as long as you credit the following contributers:*
 
+_Contributors to "Uber Realms" Source:_
+csengineer13, uberawesomemonk
 
-### Contact Us ###
-
-[Uber-Realms Forum](http://uber-realms.com/forum)
-
-
-## Tutorials ##
-
-- [How to set up Fabiano's Server On Your Local Machine (Hamachi)](http://www.mpgh.net/forum/showthread.php?t=959037)
-- [How to Host Server on a Linux Virtual Private Server (VPS)](/docs/how-to-host-server-on-linux-virtual-private-server-vps.md)
-- How Do I Add or Change A Map/Character/Monster?
-- Coming soon
-
-
-## Frequently Asked Questions (FAQ) ##
-
-**Example question?**
-*Exameple Answer*
-
-
-##Additional License information
-
-This is a fork of: [ossimc82's Repo](https://github.com/ossimc82/fabiano-swagger-of-doom). You are free to use this source as long as you credit the following contributers:
-
-- ossimc82 | Fabian Fischer
-- Zabex | Daniel Brown
-- Uber | Joey Brown
-- C453
-- Trapped
-- Donran
-- creepylava
-- Krazyshank
-- Barm
-- Nilly
-- sebastianfra12
-- Kieron
+_Contributors to "Fabiano Swagger of Doom" Source:_
+ossimc82 | Fabian Fischer, C453, Trapped, Donran, creepylava, Krazyshank, Barm, Nilly, sebastianfra12, Kieron

@@ -211,10 +211,10 @@ CREATE TABLE IF NOT EXISTS `giftCodes` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `globalnews`
+-- Tabellenstruktur für Tabelle `globalNews`
 --
 
-CREATE TABLE IF NOT EXISTS `globalnews` (
+CREATE TABLE IF NOT EXISTS `globalNews` (
   `slot` int(11) NOT NULL,
   `linkType` int(11) NOT NULL,
   `title` varchar(65) NOT NULL,

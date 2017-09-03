@@ -150,7 +150,6 @@ namespace wServer.logic
                     new EggLoot(EggRarity.Uncommon, 0.05),
                     new EggLoot(EggRarity.Rare, 0.01),
                     new EggLoot(EggRarity.Legendary, 0.009)
-
                 )
            )
 

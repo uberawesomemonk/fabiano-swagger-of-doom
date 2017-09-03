@@ -13,6 +13,7 @@ namespace wServer.logic
         private _ Oryx = () => Behav()
             .Init("Oryx the Mad God 2",
                 new State(
+                    new DropPortalOnDeath("Glowing Realm Portal", 100),
                     new State("Attack",
                         new Wander(.05),
                         new Shoot(25, projectileIndex: 0, count: 8, shootAngle: 45, coolDown: 1500, coolDownOffset: 1500),
@@ -59,15 +60,11 @@ namespace wServer.logic
                         new Taunt(1, 6000, "Puny mortals! My {HP} HP will annihilate you!")
                     )
                 ),
-                new MostDamagers(3,
-                    new ItemLoot("Potion of Vitality", 1)
-                ),
-                new Threshold(0.05,
+                new Threshold(0.80,
+                    new ItemLoot("Potion of Vitality", 1),
                     new ItemLoot("Potion of Attack", 0.3),
                     new ItemLoot("Potion of Defense", 0.3),
-                    new ItemLoot("Potion of Wisdom", 0.3)
-                ),
-                new Threshold(0.1,
+                    new ItemLoot("Potion of Wisdom", 0.3),
                     new TierLoot(10, ItemType.Weapon, 0.07),
                     new TierLoot(11, ItemType.Weapon, 0.06),
                     new TierLoot(12, ItemType.Weapon, 0.05),
@@ -228,7 +225,7 @@ namespace wServer.logic
                         new Flash(0xfFF0000, 0.5, 9000001)
                         )
                     ),
-                new Threshold(1.0,
+                    new Threshold(0.80,
                     new TierLoot(4, ItemType.Ability, 0.3),
                     new TierLoot(5, ItemType.Ability, 0.02),
                     new TierLoot(10, ItemType.Armor, 0.03),
@@ -241,8 +238,8 @@ namespace wServer.logic
                     new TierLoot(5, ItemType.Ring, 0.01),
                     new ItemLoot("Potion of Defense", 0.5),
                     new ItemLoot("Potion of Attack", 0.5)
-            )
-            )
+            ))
+            
             .Init("Ring Element",
                 new State(
                     new State(

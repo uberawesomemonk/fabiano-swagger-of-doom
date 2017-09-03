@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Net.Sockets;
 using log4net;
 using log4net.Core;
@@ -27,7 +26,8 @@ namespace wServer.networking
 
     public class Client : IDisposable
     {
-        public const string SERVER_VERSION = "27.3.2";
+        public const string SERVER_VERSION = "27.7.0";
+        //public const string SERVER_VERSION = "27.3.2";
         private bool disposed;
 
         private static readonly ILog log = LogManager.GetLogger(typeof (Client));

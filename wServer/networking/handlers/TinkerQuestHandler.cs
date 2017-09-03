@@ -1,9 +1,4 @@
 ﻿using db;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using wServer.networking.cliPackets;
 using wServer.networking.svrPackets;
 
@@ -32,7 +27,7 @@ namespace wServer.networking.handlers
                     GiveRewards(db, client.Player.DailyQuest.Tier - 1);
                     var cmd = db.CreateQuery();
                     int tier = client.Player.DailyQuest.Tier == DailyQuestConstants.QuestsPerDay ? -1 : (client.Player.DailyQuest.Tier + 1);
-                    cmd.CommandText = "UPDATE dailyquests SET tier=@tier WHERE accId=@accId;";
+                    cmd.CommandText = "UPDATE dailyQuests SET tier=@tier WHERE accId=@accId;";
                     cmd.Parameters.AddWithValue("@accId", client.Account.AccountId);
                     cmd.Parameters.AddWithValue("@tier", tier);
                     int v = cmd.ExecuteNonQuery();

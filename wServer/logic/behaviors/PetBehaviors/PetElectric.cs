@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using wServer.networking.svrPackets;
 using wServer.realm;
 using wServer.realm.entities;

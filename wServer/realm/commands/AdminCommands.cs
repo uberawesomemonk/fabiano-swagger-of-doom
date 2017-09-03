@@ -7,9 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using wServer.networking;
 using wServer.networking.svrPackets;
-using wServer.realm.entities;
 using wServer.realm.entities.player;
 using wServer.realm.setpieces;
+using db;
 using wServer.realm.worlds;
 
 #endregion
@@ -38,6 +38,57 @@ namespace wServer.realm.commands
             //    obf1 = 10000
             //});
             return true;
+        }
+    }
+	
+	internal class SendCommand : Command
+    {
+        public SendCommand() : base("send", 1) { }
+        protected override bool Process(Player player, RealmTime time, string[] args)
+        {
+            if (args.Length < 3)
+            {
+                player.SendError("Usage: /send <player name> <ammount> <currency type>");
+                return false;
+            }
+            var db = new Database();
+            int ammount;
+            bool parsed = int.TryParse(args[1], out ammount);
+
+            if (!parsed)
+            {
+                player.SendError("Usage: /send <player name> <ammount> <currency type>");
+                return false;
+            }
+
+            foreach(var w in player.Manager.Worlds)
+            {
+                World world = w.Value;
+                foreach(var p in world.Players)
+                    if(p.Value.Name.ToLower() == args[0].ToLower())
+                {
+                        switch (args[2].ToLower())
+                        {
+                            case "gold":
+                                db.UpdateCredit(p.Value.Client.Account, ammount);
+                                break;
+                            case "fame":
+                                db.UpdateFame(p.Value.Client.Account, ammount);
+                                break;
+                            case "tokens":
+                                db.UpdateFortuneToken(p.Value.Client.Account, ammount);
+                                break;
+                            default:
+                                player.SendError("Invalid currency type!");
+                                return false;
+                        }
+                        p.Value.SendInfo(player.Name + " has sent you " + ammount + " " + args[2].ToLower() + "!");
+                        player.SendInfo("Sent " + p.Value.Name + " " + ammount + " " + args[2].ToLower() + "!");
+                        return true;
+                    }
+            }
+            player.SendError("Player not found!");
+            return false;
         }
     }
 

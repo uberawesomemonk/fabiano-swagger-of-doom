@@ -1,83 +1,93 @@
-# Uber Realms #
+﻿# DJB Code
 
-Uber Realms is a private [Realm of the Mad God](http://uber-realms.com/download.html) (RotMG) server. In recent years, development and updates for RotMG have rapidly decreased. The global user base is still over 100,000 active weekly players, but there is a strong desire for new content and improved game play. The goal of this project is to:
+This source is a fork of [Fabiano Swagger of Doom (FSOD)](https://github.com/ossimc82/fabiano-swagger-of-doom). Over 
+time, we've also added a decompiled SWF Client source that 
+[can be found here](https://github.com/kaos00723/RotMG_Client_27.7.X2). Information about how to modify, build, and
+deploy the `Server`, `WorldServer` and `Client` are included below.
 
-- Make it easier for others to host private RotMG Servers (hosted and local)
-- Clean up the existing code to make it less error prone and more efficient
-- To provide a fun, more frequently updated, version of the RotMG Official Servers
+## Contributing
 
+1. Fork this repository
+2. Clone the forked repository
+3. Before committing code, create a branch-per-feature, or branch-per-bug
+4. Create pull requests against `djb-code\dev`
 
-## How Can I Play? ##
+```
+.
+├── master
+│   ├── release/v0.1.1
+│   └── release/v0.1.0
+└── dev
+    ├── {user}/name-of-feature-or-bugfix
+    ├── {user}/name-of-feature-or-bugfix
+    └── {user}/name-of-feature-or-bugfix
+```
 
-- Visit [Uber Realm's PLAY! Page](http://uber-realms.com/play/)
-- Register an account
-- Sign in, and play! (:
+5. In an ideal world, someone will review your pull request, and after some back and forth, it will be merged into the `master` branch. This will trigger an automated build, test, and deploy to the Production Environment. Commit messages will be used to build a release description.
 
+## Getting Started
 
-### Contact Us ###
+### App Server & World Server
 
-1. [Uber-Realms Forum](http://uber-realms.com/forum)
+#### Requirements
+- VisualStudio Community 2017
+- Local MySQL Database (Or a remote one you can connect to)
 
+#### Overview
 
-## ~~ Index ~~ ##
-
-- Frequently Asked Questions (FAQ)
-- Self-Hosting
-	- Local Machine (Hamachi)
-	- Linux Virtual Private Server (VPS)
-- Modifying Existing Code
-- Credits
-
-
-## Frequently Asked Questions (FAQ) ##
-
-**Example question?**
-*Exameple Answer*
-
-## How Do I Host A Private Server? ##
-
-Note, there are many different ways to "host" a server for yourself and your friends to play on. The easiest option is to "host" locally. The harder option, the one that will take money, time, and familiarity with servers, is to host using a "virtual private server". However, you will notice less lag, and be able to support more active/online users.
-
-### Local Machine (Hamachi) ###
-
-- Guide coming soon
-
-### Linux Virtual Private Server (VPS) ###
-
-To be expanded. These are just cliff notes at this point
-
-Requirements:
-- Visual Studio
-
-1. Digital Ocean Droplet:
-    - Ubuntu 14.04
-    - 2GB RAM, 40GB SSD, 1TB Transfer
-2. Update credentials at these file locations:
-    - AdminPanel/AdminPanel.cs
-    - server/Program.cs
-    - server/server.cfg
-    - wServer/Program.cs
-    - wServer/wServer.cfg
+```
+.
+├── Admin Panel
+├── Behavior Converter
+├── db
+├── DungeonGen
+├── Json2Wmap
+├── server
+    ├── server.cfg
+    └── server.local.cfg
+├── terrain
+└── wServer
+    ├── wServer.cfg
+    └── wServer.local.cfg
+```
 
 
-## How Do I Add or Change A Map/Character/Monster? ##
+### Configuration
 
-- Coming soon
+*Client Source:*
+
+- `RSA_PUBLIC_KEY`: `com/company/assembleegameclient/parameters/Parameters.as`
+- `SERVER:String`: `kabam/rotmg/application/impl/ProductionSetup.as`
+- `ENCRYPTED:String`: `kabam/rotmg/application/impl/ProductionSetup.as`
+
+`wserver/networking/Client.cs`
+- The build version of the client needs to match the version the server expects
+- `You should update dat0.xml and dat1.xml with any new items from the client XML's.`
+
+## Resources
+
+### Repositories of Note:
+
+Repositories of other/similar projects. We're not the only people running and customizing ROTMG ;)
+
+* [Nilly's Realm Server & World Server](https://github.com/cp-nilly/NR-CORE)
+* [Nilly's Realm Client](https://github.com/cp-nilly/NR-27.7.X13)
+
+### Useful Tutorials:
+
+We've used these in whole or in part to help us at various points.
+
+* [How to host using a Linux VPS](http://www.mpgh.net/forum/showthread.php?t=1101434)
+* [27.7.X2 AS3 Client to FSOD](http://www.mpgh.net/forum/showthread.php?t=1163271)
 
 
-##Additional License information
+## License Information
 
-This is a fork of: [ossimc82's Repo](https://github.com/ossimc82/fabiano-swagger-of-doom). You are free to use this source as long as you credit the following contributers:
+You are free to use this source as long as you credit the following contributers:
 
-- ossimc82 | Fabian Fischer
-- Zabex | Daniel Brown
-- Uber | Joey Brown
-- C453
-- Trapped
-- Donran
-- creepylava
-- Krazyshank
-- Barm
-- Nilly
-- sebastianfra12
-- Kieron
+##### _Contributors to "Uber Realms" Source:_
+
+csengineer13, uberawesomemonk
+
+##### _Contributors to "Fabiano Swagger of Doom" Source:_
+ossimc82 | Fabian Fischer, C453, Trapped, Donran, creepylava, Krazyshank, Barm, Nilly, sebastianfra12, Kieron

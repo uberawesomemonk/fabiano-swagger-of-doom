@@ -5,7 +5,6 @@ using System.Text;
 using BehaviorConverter.BehaviorEngine;
 using BehaviorConverter.BehaviorEngine.fabiano;
 using Microsoft.CSharp;
-using wServer.logic;
 
 namespace BehaviorConverter
 {

@@ -90,16 +90,14 @@
     <Reference Include="Ionic.ZLib">
       <HintPath>..\packages\MarkerMetro.Unity.Ionic.Zlib.2.0.0.6\lib\net35\Ionic.ZLib.dll</HintPath>
     </Reference>
-    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Data">
       <HintPath>..\packages\MySql.Data.6.9.6\lib\net45\MySql.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -153,6 +151,7 @@
     <Compile Include="logic\behaviors\PetBehaviors\PetShoot.cs" />
     <Compile Include="logic\behaviors\RemoveEntity.cs" />
     <Compile Include="logic\db\BehaviorDb.Abyss.cs" />
+    <Compile Include="logic\db\BehaviorDb.Avatar.cs" />
     <Compile Include="logic\db\BehaviorDb.CandyLand.cs" />
     <Compile Include="logic\db\BehaviorDb.Draconis.cs" />
     <Compile Include="logic\db\BehaviorDb.Drakes.cs" />
@@ -215,7 +214,6 @@
     <Compile Include="logic\behaviors\Wander.cs" />
     <Compile Include="logic\Cooldown.cs" />
     <Compile Include="logic\DamageCounter.cs" />
-    <Compile Include="logic\db\BehaviorDb.Avatar.cs" />
     <Compile Include="logic\db\BehaviorDb.Beachzone.cs" />
     <Compile Include="logic\db\BehaviorDb.Belladonna.cs" />
     <Compile Include="logic\db\BehaviorDb.OryxChicken.cs" />
@@ -460,6 +458,7 @@
     <Compile Include="realm\worlds\GuildHall.cs" />
     <Compile Include="realm\worlds\DailyQuestRoom.cs" />
     <Compile Include="realm\worlds\MadLab.cs" />
+    <Compile Include="realm\worlds\IvoryWyvern.cs" />
     <Compile Include="realm\worlds\oryxchamber.cs" />
     <Compile Include="realm\worlds\PirateCave.cs" />
     <Compile Include="realm\worlds\SpiderDen.cs" />
@@ -526,6 +525,7 @@
     <Compile Include="networking\svrPackets\UpdatePacket.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="Vector2.cs" />
+    <Compile Include="WorldMapExporter.cs" />
     <Compile Include="wRandom.cs" />
     <Compile Include="networking\handlers\AoEAckHandler.cs" />
   </ItemGroup>
@@ -615,7 +615,13 @@
     <EmbeddedResource Include="realm\worlds\maps\nexus_winter.jm" />
     <EmbeddedResource Include="realm\worlds\maps\nexus_summer.jm" />
     <EmbeddedResource Include="realm\worlds\maps\OryxsChamber.wmap" />
+    <EmbeddedResource Include="realm\worlds\maps\IvoryWyvern.wmap" />
+    <None Include="realm\worlds\maps\IvoryWyvern.jm" />
     <None Include="realm\worlds\maps\OryxsChamber.jm" />
+    <EmbeddedResource Include="realm\worlds\maps\spriteworld.jm" />
+    <None Include="wServer.local.cfg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="wServer.cfg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

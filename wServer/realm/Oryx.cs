@@ -226,8 +226,8 @@ namespace wServer.realm
             if (CountEnemies(
                 "Lich", "Actual Lich",
                 "Ent Ancient", "Actual Ent Ancient",
-                "Phoenix Reborn",
-                "Oasis Giant", 
+                //"Phoenix Reborn",
+                //"Oasis Giant", 
                 "Cyclops God", "Red Demon",
                 "Skull Shrine", "Cube God", "Grand Sphinx", "Hermit God") != 0) return false;
             RealmClosed = true;
@@ -289,6 +289,7 @@ namespace wServer.realm
 
         public void Init()
         {
+            world.Timers.Add(new WorldTimer(1500000, (ww, tt) => { InitCloseRealm(); }));
             log.InfoFormat("Oryx is controlling world {0}({1})...", world.Id, world.Name);
             var w = world.Map.Width;
             var h = world.Map.Height;

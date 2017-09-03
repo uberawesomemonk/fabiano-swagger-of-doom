@@ -1524,6 +1524,12 @@ namespace wServer.logic
                         )
                     ),
 
+                new MostDamagers(3,
+                    new ItemLoot("Potion of Vitality", 1.0),
+                    new ItemLoot("Potion of Speed", 0.5),
+                    new ItemLoot("Potion of Dexterity", 0.3)
+                ),
+
             new Threshold(0.03,
                     new TierLoot(11, ItemType.Weapon, 0.15),
                     new TierLoot(6, ItemType.Ability, 0.1),

@@ -29,7 +29,7 @@ namespace wServer.realm
             Tuple.Create("Pentaract", (ISetPiece) new Pentaract()),
             Tuple.Create("Grand Sphinx", (ISetPiece) new Sphinx()),
             Tuple.Create("Lord Of The Lost Lands", (ISetPiece) new Graveyard()),
-            Tuple.Create("Hermit", (ISetPiece) new Hermit()),
+            Tuple.Create("Hermit God", (ISetPiece) new Hermit()),
             Tuple.Create("Ghost Ship", (ISetPiece) new GhostShip()),
             Tuple.Create("Cube God", (ISetPiece) new CubeGod()),
         };
@@ -358,7 +358,7 @@ namespace wServer.realm
                     BroadcastMsg(msg);
                 }
 
-                if (rand.NextDouble() < 0.25)
+                if (rand.NextDouble() < 0.35)
                 {
                     var evt = events[rand.Next(0, events.Count)];
                     if (

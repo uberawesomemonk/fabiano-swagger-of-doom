@@ -6,6 +6,7 @@
         {
             Name = "Candyland Hunting Grounds";
             ClientWorldName = "dungeons.Candyland_Hunting_Grounds";
+            Dungeon = true;
             Background = 0;
             Difficulty = 3;
             AllowTeleport = true;

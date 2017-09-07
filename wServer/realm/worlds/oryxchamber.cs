@@ -6,6 +6,7 @@
         {
             Name = "Oryx's Chamber Portal";
             ClientWorldName = "Oryx's Chamber";
+            Dungeon = true;
             Background = 0;
             AllowTeleport = false;
             Difficulty = 5;

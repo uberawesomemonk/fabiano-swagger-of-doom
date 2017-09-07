@@ -25,10 +25,10 @@ namespace wServer.realm
         private readonly List<Tuple<string, ISetPiece>> events = new List<Tuple<string, ISetPiece>>
         {
             Tuple.Create("Skull Shrine", (ISetPiece) new SkullShrine()),
-            Tuple.Create("Avatar", (ISetPiece) new Avatar()),
+            Tuple.Create("shtrs Defense System", (ISetPiece) new Avatar()),
             Tuple.Create("Pentaract", (ISetPiece) new Pentaract()),
             Tuple.Create("Grand Sphinx", (ISetPiece) new Sphinx()),
-            Tuple.Create("Lord Of The Lost Lands", (ISetPiece) new Graveyard()),
+            Tuple.Create("Lord of the Lost Lands", (ISetPiece) new LordOfTheLostLands()),
             Tuple.Create("Hermit God", (ISetPiece) new Hermit()),
             Tuple.Create("Ghost Ship", (ISetPiece) new GhostShip()),
             Tuple.Create("Cube God", (ISetPiece) new CubeGod()),
@@ -289,7 +289,7 @@ namespace wServer.realm
 
         public void Init()
         {
-            world.Timers.Add(new WorldTimer(1500000, (ww, tt) => { InitCloseRealm(); }));
+            world.Timers.Add(new WorldTimer(5400000, (ww, tt) => { InitCloseRealm(); }));
             log.InfoFormat("Oryx is controlling world {0}({1})...", world.Id, world.Name);
             var w = world.Map.Width;
             var h = world.Map.Height;
@@ -359,7 +359,7 @@ namespace wServer.realm
                     BroadcastMsg(msg);
                 }
 
-                if (rand.NextDouble() < 0.35)
+                if (rand.NextDouble() < 0.66)
                 {
                     var evt = events[rand.Next(0, events.Count)];
                     if (
@@ -863,6 +863,28 @@ namespace wServer.realm
                 {
                     "My Hermit God was more than you'll ever be, {PLAYER}. I will kill you myself!",
                     "You naive imbecile, {PLAYER}! Without my Hermit God, Dreadstump is free to roam the seas without fear!"
+                }
+            }),
+
+            Tuple.Create("shtrs Defense System", new TauntData
+            {
+                spawn = new[]
+                {
+                    "An Avatar spawned, you're a god coder... kappa."
+                },
+                //numberOfEnemies = new string[] {
+                //    "You dull-spirited apes! You shall pose no challenge for {COUNT} Grand Sphinxes!",
+                //    "Regret your choices, blasphemers! My {COUNT} Grand Sphinxes will teach you respect!",
+                //    "My Grand Sphinxes will bewitch you with their beauty!"
+                //},
+                //final = new string[] {
+                //    "You festering rat-catchers! A Grand Sphinx will make you doubt your purpose!",
+                //    "Gaze upon the beauty of the Grand Sphinx and feel your last hopes drain away."
+                //},
+                killed = new[]
+                {
+                    "My Avatar was more than you'll ever be, {PLAYER}. I will kill you myself!",
+                    "You naive imbecile, {PLAYER}! I have millions of Avatars, that was but one!"
                 }
             }),
             Tuple.Create("Ghost Ship", new TauntData

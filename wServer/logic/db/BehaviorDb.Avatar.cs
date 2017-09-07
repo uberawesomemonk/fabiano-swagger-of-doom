@@ -13,7 +13,7 @@ namespace wServer.logic
         private _ Avatar = () => Behav()
             .Init("shtrs Defense System",
                 new State(
-                    new DropPortalOnDeath("The Shatters", percent: 95, dropDelaySec: 2, XAdjustment: 0, YAdjustment: 2, PortalDespawnTimeSec: 70),
+                    new DropPortalOnDeath("The Shatters", percent: 0, dropDelaySec: 2, XAdjustment: 0, YAdjustment: 2, PortalDespawnTimeSec: 70),
                     new ChangeGroundOnDeath(new[] { "Pure Evil" }, new[] { "shtrs Disaster Floor", "shtrs Shattered Floor" },
                     30),
                     new State("stars",

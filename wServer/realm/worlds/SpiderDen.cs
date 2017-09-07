@@ -6,6 +6,7 @@
         {
             Name = "Spider Den";
             ClientWorldName = "dungeons.Spider_Den";
+            Dungeon = true;
             Background = 0;
             Difficulty = 2;
             AllowTeleport = true;

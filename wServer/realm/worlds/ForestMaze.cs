@@ -6,6 +6,7 @@
         {
             Name = "Forest Maze";
             ClientWorldName = "dungeons.Forest_Maze";
+            Dungeon = true;
             Background = 0;
             Difficulty = 1;
             AllowTeleport = true;

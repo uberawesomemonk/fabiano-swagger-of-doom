@@ -66,6 +66,7 @@ namespace wServer.logic
 
             .Init("Hermit God",
                 new State(
+                    new DropPortalOnDeath("Ocean Trench Portal", percent: 95, dropDelaySec: 0, XAdjustment: 5, YAdjustment: 0, PortalDespawnTimeSec: 70),
                     new CopyDamageOnDeath("Hermit God Drop"),
                     new State("invis",
                         new SetAltTexture(3),

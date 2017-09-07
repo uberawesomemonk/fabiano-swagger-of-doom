@@ -498,7 +498,7 @@ namespace wServer.logic
             new State(
                 new DropPortalOnDeath("Candyland Portal", percent: 90, PortalDespawnTimeSec: 120),
                 new Prioritize(
-                    new StayBack(1.5, 55),
+                    new StayBack(.5, 10),
                     new Wander(1.4)
                     )
                 ),

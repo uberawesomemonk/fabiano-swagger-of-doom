@@ -12,6 +12,7 @@ namespace wServer.realm.worlds
         {
             Name = "Oryx's Castle";
             ClientWorldName = "server.Oryx's_Castle";
+            Dungeon = true;
             Background = 0;
             AllowTeleport = false;
         }

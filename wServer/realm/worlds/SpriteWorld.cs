@@ -12,6 +12,7 @@ namespace wServer.realm.worlds
         {
             Name = "Sprite World";
             ClientWorldName = "Sprite World";
+            Dungeon = true;
             Background = 0;
             AllowTeleport = false;
             Difficulty = 5;

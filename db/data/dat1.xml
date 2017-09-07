@@ -22264,6 +22264,8 @@
    <Object type="0x734d" id="shtrs Defense System">
       <DisplayId>{encounters.shtrs_Defense_System}</DisplayId>
       <Enemy/>
+      <Hero/>
+      <Encounter/>
       <Class>Character</Class>
       <Quest/>
       <Level>20</Level>

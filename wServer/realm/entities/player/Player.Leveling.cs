@@ -51,6 +51,7 @@ namespace wServer.realm.entities.player
                 {"Hermit God", Tuple.Create(16, 15, 1000)},
                 {"Ghost Ship", Tuple.Create(16, 15, 1000)},
                 {"Unknown Giant Golem", Tuple.Create(16, 15, 1000)},
+                {"shtrs Defense System", Tuple.Create(17, 15, 1000)},
                 {"Evil Chicken God", Tuple.Create(20, 1, 1000)},
                 {"Bonegrind The Butcher", Tuple.Create(20, 1, 1000)},
                 {"Dreadstump the Pirate King", Tuple.Create(20, 1, 1000)},

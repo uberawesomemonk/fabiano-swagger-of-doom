@@ -13,6 +13,7 @@ namespace wServer.realm.worlds
         {
             Name = "Ivory Wyvern Portal";
             ClientWorldName = "Ivory Wyvern";
+            Dungeon = true;
             Background = 0;
             AllowTeleport = false;
             Difficulty = 5;

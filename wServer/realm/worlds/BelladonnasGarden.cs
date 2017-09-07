@@ -6,6 +6,7 @@
         {
             Name = "Belladonna's Garden";
             ClientWorldName = "dungeons.BelladonnaAPOSs_Garden";
+            Dungeon = true;
             Background = 0;
             AllowTeleport = false;
             Difficulty = 5;

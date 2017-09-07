@@ -12,6 +12,7 @@ namespace wServer.realm.worlds
         {
             Name = "The Shatters";
             ClientWorldName = "shatters.The_Shatters";
+            Dungeon = true;
             Background = 0;
             AllowTeleport = false;
         }

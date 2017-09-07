@@ -12,6 +12,7 @@ namespace wServer.realm.worlds
         {
             Name = "Lair of Shaitan";
             ClientWorldName = "dungeons.Lair_of_Shaitan";
+            Dungeon = true;
             Background = 0;
             AllowTeleport = true;
         }

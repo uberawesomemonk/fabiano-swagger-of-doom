@@ -15893,6 +15893,7 @@
    <Object type="0x0e18" id="Test Egg">
       <DisplayId>Egg</DisplayId>
       <Enemy/>
+     <Quest/>
       <Class>Character</Class>
       <StasisImmune/>
       <Texture>
@@ -15939,13 +15940,15 @@
          <File>chars16x16rEncounters</File>
          <Index>22</Index>
       </AnimatedTexture>
-      <MaxHitPoints>65000</MaxHitPoints>
+      <MaxHitPoints>100000</MaxHitPoints>
       <Defense>55</Defense>
       <XpMult>0.35</XpMult>
-      <Size>40</Size>
+      <Size>100</Size>
       <ShadowSize>80</ShadowSize>
       <StasisImmune/>
       <StunImmune/>
+      <Quest/>
+      <God/>
       <ParalyzeImmune/>
       <HitSound>monster/chicken_hit</HitSound>
       <DeathSound>monster/chicken_death</DeathSound>
@@ -15962,23 +15965,23 @@
          <Damage>150</Damage>
          <Speed>40</Speed>
          <Size>120</Size>
-         <LifetimeMS>3000</LifetimeMS>
+         <LifetimeMS>9000</LifetimeMS>
       </Projectile>
       <Projectile id="2">
          <ObjectId>Rainbow Magic Star Super</ObjectId>
          <Damage>300</Damage>
-         <Speed>20</Speed>
+         <Speed>80</Speed>
          <Size>200</Size>
-         <LifetimeMS>3500</LifetimeMS>
+         <LifetimeMS>6000</LifetimeMS>
          <MultiHit/>
          <ConditionEffect duration="5">Confused</ConditionEffect>
       </Projectile>
       <Projectile id="3">
          <ObjectId>Rainbow Magic Star</ObjectId>
          <Damage>150</Damage>
-         <Speed>50</Speed>
+         <Speed>400</Speed>
          <Size>100</Size>
-         <LifetimeMS>2250</LifetimeMS>
+         <LifetimeMS>3000</LifetimeMS>
          <MultiHit/>
          <ConditionEffect duration="2.5">Confused</ConditionEffect>
       </Projectile>
@@ -35140,32 +35143,36 @@
       <Soulbound/>
       <DisplayId>{equip.Prism_of_Dancing_Swords}</DisplayId>
    </Object>
-   <Object type="0xb21" id="Chicken Leg of Doom">
-      <Class>Equipment</Class>
-      <Item/>
-      <Texture>
-         <File>lofiObj</File>
-         <Index>0x1d</Index>
-      </Texture>
-      <SlotType>2</SlotType>
-      <Description>{equip.A_chicken_leg_of_doom.}</Description>
-      <RateOfFire>0.9</RateOfFire>
-      <Sound>weapon/dirk</Sound>
-      <Projectile>
-         <ObjectId>Chicken Leg</ObjectId>
-         <Speed>100</Speed>
-         <MinDamage>65</MinDamage>
-         <MaxDamage>105</MaxDamage>
-         <LifetimeMS>600</LifetimeMS>
-         <Size>80</Size>
-      </Projectile>
-      <BagType>6</BagType>
-      <OldSound>daggerSwing</OldSound>
-      <FameBonus>4</FameBonus>
-      <feedPower>650</feedPower>
-      <Soulbound/>
-      <DisplayId>{equip.Chicken_Leg_of_Doom}</DisplayId>
-   </Object>
+  <Object type="0xb21" id="Chicken Leg of Doom">
+    <Class>Equipment</Class>
+    <Item/>
+    <Texture>
+      <File>lofiObj</File>
+      <Index>0x1d</Index>
+    </Texture>
+    <SlotType>2</SlotType>
+    <Description>A chicken leg of doom.  Dropped during the 2017 Thanksgiving event.</Description>
+    <RateOfFire>0.6</RateOfFire>
+    <Sound>weapon/dirk</Sound>
+    <Projectile>
+      <ObjectId>Chicken Leg</ObjectId>
+      <Speed>150</Speed>
+      <MinDamage>105</MinDamage>
+      <MaxDamage>210</MaxDamage>
+      <LifetimeMS>373</LifetimeMS>
+      <Frequency>1</Frequency>
+      <Size>90</Size>
+      <MultiHit/>
+    </Projectile>
+    <OldSound>daggerSwing</OldSound>
+    <NumProjectiles>3</NumProjectiles>
+    <ArcGap>6</ArcGap>
+    <ActivateOnEquip stat="27" amount="4">IncrementStat</ActivateOnEquip>
+    <BagType>6</BagType>
+    <FameBonus>7</FameBonus>
+    <feedPower>1000</feedPower>
+    <DisplayId>Chicken Leg of Doom</DisplayId>
+  </Object>
    <Object type="0xae5" id="Lightning Scepter">
       <Class>Equipment</Class>
       <Item/>
@@ -74934,57 +74941,84 @@
       </Projectile>
       <DisplayId>{tombOfTheAncients.Jackal_Priest}</DisplayId>
    </Object>
-   <Object type="0x0d3c" id="Lion Archer">
-      <Group>Tomb Gang</Group>
-      <Enemy/>
-      <Class>Character</Class>
-      <AnimatedTexture>
-         <File>chars8x8rEncounters</File>
-         <Index>7</Index>
-      </AnimatedTexture>
-      <HitSound>monster/elves_hit</HitSound>
-      <DeathSound>monster/elves_death</DeathSound>
-      <MaxHitPoints>3200</MaxHitPoints>
+  <Object type="0x0d3c" id="Lion Archer">
+    <Group>Tomb Gang</Group>
+    <Enemy/>
+    <Class>Character</Class>
+    <AnimatedTexture>
+      <File>chars8x8rEncounters</File>
+      <Index>7</Index>
+    </AnimatedTexture>
+    <HitSound>monster/elves_hit</HitSound>
+    <DeathSound>monster/elves_death</DeathSound>
+    <MaxHitPoints>3200</MaxHitPoints>
+    <Size>120</Size>
+    <Defense>20</Defense>
+    <XpMult>1.2</XpMult>
+    <God/>
+    <Projectile id="0">
+      <ObjectId>Indigo Arrow</ObjectId>
+      <Damage>70</Damage>
+      <Speed>70</Speed>
+      <LifetimeMS>1200</LifetimeMS>
+      <Size>100</Size>
+      <MultiHit/>
+    </Projectile>
+    <Projectile id="1">
+      <ObjectId>Indigo Arrow</ObjectId>
+      <Damage>100</Damage>
+      <Speed>70</Speed>
+      <LifetimeMS>1200</LifetimeMS>
       <Size>120</Size>
-      <Defense>20</Defense>
-      <XpMult>1.2</XpMult>
-      <God/>
-      <Projectile id="0">
-         <ObjectId>Indigo Arrow</ObjectId>
-         <Damage>70</Damage>
-         <Speed>70</Speed>
-         <LifetimeMS>1200</LifetimeMS>
-         <Size>100</Size>
-         <MultiHit/>
-      </Projectile>
-      <Projectile id="1">
-         <ObjectId>Indigo Arrow</ObjectId>
-         <Damage>100</Damage>
-         <Speed>70</Speed>
-         <LifetimeMS>1200</LifetimeMS>
-         <Size>120</Size>
-         <MultiHit/>
-      </Projectile>
-      <Projectile id="2">
-         <ObjectId>Spring Green Arrow</ObjectId>
-         <Damage>90</Damage>
-         <Speed>60</Speed>
-         <LifetimeMS>2000</LifetimeMS>
-         <Size>140</Size>
-         <MultiHit/>
-         <ConditionEffect duration="4">Slowed</ConditionEffect>
-      </Projectile>
-      <Projectile id="3">
-         <ObjectId>Black Arrow</ObjectId>
-         <Damage>100</Damage>
-         <Speed>50</Speed>
-         <LifetimeMS>3000</LifetimeMS>
-         <Size>140</Size>
-         <MultiHit/>
-         <ConditionEffect duration="1.2">Paralyzed</ConditionEffect>
-      </Projectile>
-      <DisplayId>{tombOfTheAncients.Lion_Archer}</DisplayId>
-   </Object>
+      <MultiHit/>
+    </Projectile>
+    <Projectile id="2">
+      <ObjectId>Spring Green Arrow</ObjectId>
+      <Damage>90</Damage>
+      <Speed>60</Speed>
+      <LifetimeMS>2000</LifetimeMS>
+      <Size>140</Size>
+      <MultiHit/>
+      <ConditionEffect duration="4">Slowed</ConditionEffect>
+    </Projectile>
+    <Projectile id="3">
+      <ObjectId>Black Arrow</ObjectId>
+      <Damage>100</Damage>
+      <Speed>50</Speed>
+      <LifetimeMS>3000</LifetimeMS>
+      <Size>140</Size>
+      <MultiHit/>
+      <ConditionEffect duration="1.2">Paralyzed</ConditionEffect>
+    </Projectile>
+    <DisplayId>{tombOfTheAncients.Lion_Archer}</DisplayId>
+  </Object>
+
+  <Object type="0x155d" id="Thanksgiving Event">
+    <DisplayId>Thanksgiving Event Portal</DisplayId>
+    <Class>Portal</Class>
+    <IntergamePortal/>
+    <DungeonName>Thanksgiving</DungeonName>
+    <Texture>
+      <File>lofiEnvironment</File>
+      <Index>0x7c</Index>
+    </Texture>
+  </Object>
+
+  <Object type="0x145d" id="Thanksgiving Key">
+    <Class>Equipment</Class>
+    <Item/>
+    <Texture>
+      <File>lofiObj3</File>
+      <Index>0x565</Index>
+    </Texture>
+    <SlotType>10</SlotType>
+    <Description>A key which opens an entrance to the thanksgiving event.</Description>
+    <Sound>use_key</Sound>
+    <Consumable/>
+    <Soulbound/>
+    <Activate id="Thanksgiving Event">Create</Activate>
+    <DisplayId>Thanksgiving Key</DisplayId>
+  </Object>
 
 
 

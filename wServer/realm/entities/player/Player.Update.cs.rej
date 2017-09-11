@@ -1,0 +1,20 @@
+diff a/wServer/realm/entities/player/Player.Update.cs b/wServer/realm/entities/player/Player.Update.cs	(rejected hunks)
+@@ -216,12 +216,16 @@
+             var removedIds = new List<int>();
+             foreach (var i in removeStatics)
+             {
+-                removedIds.Add(Owner.Map[i.X, i.Y].ObjId);
+-                clientStatic.Remove(i);
++                if (Owner.Map[i.X, i.Y].ObjType == 0)
++                {
++                    removedIds.Add(Owner.Map[i.X, i.Y].ObjId);
++                    clientStatic.Remove(i);
++                }
+             }
+ 
+             if (sendEntities.Count <= 0 && list.Count <= 0 && dropEntities.Length <= 0 && newStatics.Length <= 0 &&
+                 removedIds.Count <= 0) return;
++
+             var packet = new UpdatePacket()
+             {
+                 Tiles = list.ToArray(),

@@ -1,11 +1,11 @@
 ﻿namespace wServer.realm.worlds
 {
-    public class WineCellar : World
+    public class Thanksgiving : World
     {
-        public WineCellar()
+        public Thanksgiving()
         {
-            Name = "Wine Cellar";
-            ClientWorldName = "Wine Cellar";
+            Name = "Thanksgiving Portal";
+            ClientWorldName = "Thanksgiving Portal";
             Dungeon = true;
             Background = 0;
             AllowTeleport = false;
@@ -14,7 +14,7 @@
 
         protected override void Init()
         {
-            LoadMap("wServer.realm.worlds.maps.winecellar.jm", MapType.Json);
+            LoadMap("wServer.realm.worlds.maps.thanksgiving.jm", MapType.Json);
         }
     }
 }

@@ -464,6 +464,7 @@
     <Compile Include="realm\worlds\PirateCave.cs" />
     <Compile Include="realm\worlds\SpiderDen.cs" />
     <Compile Include="realm\worlds\SpriteWorld.cs" />
+    <Compile Include="realm\worlds\Thanksgiving.cs" />
     <Compile Include="realm\worlds\TheShatters.cs" />
     <Compile Include="realm\worlds\SnakePit.cs" />
     <Compile Include="realm\worlds\TomboftheAncients.cs" />
@@ -620,6 +621,8 @@
     <None Include="realm\worlds\maps\IvoryWyvern.jm" />
     <None Include="realm\worlds\maps\OryxsChamber.jm" />
     <EmbeddedResource Include="realm\worlds\maps\spriteworld.jm" />
+    <EmbeddedResource Include="realm\worlds\maps\thanksgiving.jm" />
+    <EmbeddedResource Include="realm\worlds\maps\winecellar.jm" />
     <None Include="wServer.local.cfg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

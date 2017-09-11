@@ -13,7 +13,7 @@ namespace wServer.logic
         private _ Oryx = () => Behav()
             .Init("Oryx the Mad God 2",
                 new State(
-                    new DropPortalOnDeath("Glowing Realm Portal", 100),
+                    new DropPortalOnDeath("Thanksgiving Event", 100),
                     new State("Attack",
                         new Wander(.05),
                         new Shoot(25, projectileIndex: 0, count: 8, shootAngle: 45, coolDown: 1500, coolDownOffset: 1500),

@@ -623,6 +623,7 @@
     <EmbeddedResource Include="realm\worlds\maps\spriteworld.jm" />
     <EmbeddedResource Include="realm\worlds\maps\thanksgiving.jm" />
     <EmbeddedResource Include="realm\worlds\maps\winecellar.jm" />
+    <EmbeddedResource Include="realm\worlds\maps\shittersmep.jm" />
     <None Include="wServer.local.cfg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

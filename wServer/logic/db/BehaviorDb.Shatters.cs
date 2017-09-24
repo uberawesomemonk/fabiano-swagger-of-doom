@@ -11,7 +11,7 @@ namespace wServer.logic
                 new State(
                     new State("Idle",
                         new Prioritize(
-                            new Wander(0.8)
+                            new Wander(0.4)
                             ),
                         new ConditionalEffect(ConditionEffectIndex.Invulnerable),
                         new Reproduce(densityMax: 4),
@@ -49,7 +49,7 @@ namespace wServer.logic
                             new ConditionalEffect(ConditionEffectIndex.Invulnerable),
                             new TimedTransition(2000, "Bullet")
                             ),
-                        new NoPlayerWithinTransition(13, "Idle")
+                        new NoPlayerWithinTransition(9, "Idle")
                         )
                     )
             )
@@ -65,41 +65,391 @@ namespace wServer.logic
             .Init("shtrs Stone Knight",
             new State(
                 new State("Follow",
-                        new Follow(0.6, 10, 5),
-                        new PlayerWithinTransition(5, "Charge")
+                        new Follow(1.5, range: .7),
+                        new Charge(2, 10, coolDown: 1999),
+                        new Shoot(5, 6, projectileIndex: 0, coolDown: 2000)
+                    )
+                    )
+            )
+
+        .Init("shtrs Spike",
+            new State(
+                 new TimedTransition(5000, "Suicide"),
+                 new PlayerWithinTransition(.5, "Suicide"),
+                new State("Poke",
+                        new Shoot(5, 1, projectileIndex: 0, coolDown: 0)
                     ),
-                    new State("Charge",
+
+                new State("Suicide",
+                        new Suicide()
+                    )
+
+                    )
+            )
+
+
+        .Init("shtrs Stone Mage",
+            new State(
+                new State("Follow",
+                        new Follow(0.6, 10, 3),
+                        new Shoot(5, 2, 1, projectileIndex: 0, coolDown: 50),
+                        new TimedTransition(10000, "Radial blast"),
+                        new PlayerWithinTransition(5, "Idle")
+                    ),
+                    new State("Idle",
+                        new NoPlayerWithinTransition(5, "Follow"),
+                        new Shoot(5, 2, 1, projectileIndex: 1, coolDown: 200)
+                        ),
+                new State("Radial blast",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
                         new TimedTransition(2000, "Follow"),
-                        new Charge(4, 5),
-                        new Shoot(5, 6, projectileIndex:0, coolDown:3000)
+                        new Shoot(12, count: 10, projectileIndex: 0, coolDown: 1000),
+                        new TossObject("shtrs Spike", 10, coolDown: 1900, coolDownOffset: 900, randomToss: true),
+                        new TossObject("shtrs Spike", 10, coolDown: 1900, coolDownOffset: 900, randomToss: true),
+                        new TossObject("shtrs Spike", 10, coolDown: 1900, coolDownOffset: 900, randomToss: true)
                         )
                     )
             )
-            .Init("shtrs Ice Mage",
+
+        .Init("shtrs Fire Mage",
+            new State(
+                new State("Dormant",
+                    new HpLessTransition(0.99, "Main"),
+                    new Follow(1, acquireRange: 9, range: 3),
+                    new Shoot(6, 3, 10, projectileIndex: 1, coolDown: 100, predictive: 0)
+                ),
+
                 new State("Main",
-                    new Follow(0.5, range: 1),
-                    new Shoot(10, 5, 10, projectileIndex: 0, coolDown: 1500)
-                    ))
-            .Init("shtrs Ice Adept",
+                    //Acquire range needs to be used on all other mobs in dungeon, 8 seems like a good range, maybe 9?
+                    new TimedTransition(9500, "preradical"),
+                    new Follow(1, acquireRange: 9, range: 3),
+                    new Shoot(6, 3, 10, projectileIndex: 1, coolDown: 100, predictive: 0)
+                ),
+
+                new State("preradical",
+                    //Flash also needs to be added along with a slight pause before other "rage stages" on other mobs within shatters.
+                    new Flash(0xfFF0000, .5, 3),
+                    new TimedTransition(500, "radical")
+                ),
+
+                new State("radical",
+                    new Wander(1.2),
+                    new Shoot(6, 3, 10, projectileIndex: 1, coolDown: 100, predictive: 0),
+                    new TimedTransition(5000, "Main")
+                )
+                  ),
+
+            new ItemLoot("Magic Potion", 0.1),
+            new ItemLoot("Health Potion", 0.1)
+
+
+            )
+
+        .Init("shtrs Fire Adept",
             new State(
                 new State("Main",
-                    new TimedTransition(7000, "Throw"),
-                    new Follow(0.8, range: 1),
-                    new Shoot(10, 1, projectileIndex: 0, coolDown: 100, predictive: 1),
-                    new Shoot(10, 3, projectileIndex: 1, shootAngle:10, coolDown: 4000, predictive: 1)
+                    new TimedTransition(9500, "prethrow"),
+                   new Follow(1, acquireRange: 9, range: 1),
+                    new Shoot(3, 3, projectileIndex: 0, coolDown: 100, predictive: 0),
+                    new Shoot(6, count: 3, projectileIndex: 1, coolDown: 4000)
                 ),
+
+                new State("prethrow",
+                    new Flash(0xfFF0000, .5, 3),
+                    new TimedTransition(500, "Throw")
+                ),
+
                 new State("Throw",
-                    new TossObject("shtrs Ice Portal", 5, coolDown: 8000, coolDownOffset: 7000, randomToss: true),
+                    new TossObject("shtrs Fire Portal", 8, coolDown: 8000, coolDownOffset: 900, randomToss: false),
                     new TimedTransition(1000, "Main")
                 )
-                  ))
+                  ),
+            new ItemLoot("Magic Potion", 0.1),
+            new ItemLoot("Health Potion", 0.1)
+            )
+
+            .Init("shtrs Ice Mage",
+            new State(
+                new State("dormant",
+                    new HpLessTransition(0.99, "Main"),
+                    new Follow(.5, acquireRange: 9, range: 1),
+                    new Shoot(9, 5, 10, projectileIndex: 0, coolDown: 1500)
+                    ),
+                new State("Main",
+                    new TimedTransition(7500, "preSpawn"),
+                    new Follow(.5, acquireRange: 9, range: 1),
+                    new Shoot(9, 5, 10, projectileIndex: 0, coolDown: 1500)
+                    ),
+
+                new State("preSpawn",
+                    new Flash(0xfFF0000, .5, 3),
+                    new TimedTransition(500, "Spawn")
+                ),
+
+                new State("Spawn",
+                    new TossObject("shtrs Ice Shield", 9, coolDown: 8000, coolDownOffset: 900, randomToss: false),
+                    new TimedTransition(1000, "Main")
+                    )
+
+                ),
+            new ItemLoot("Magic Potion", 0.1),
+            new ItemLoot("Health Potion", 0.1)
+            )
+
+        .Init("shtrs Firebomb",
+            new State(
+                new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                new State("dormant",
+                    new TimedTransition(2000, "boomboom")
+                    ),
+
+
+                new State("boomboom",
+                    new Shoot(25, count: 5, fixedAngle: 0, projectileIndex: 0, coolDown: 500),
+                    new Suicide()
+
+                    )
+                ))
+
+            .Init("shtrs KillWall 1",
+            new State(
+                 new ChangeGroundOnDeath(new[] { "shtrs Pure Evil" }, new[] { "shtrs Bridge" }, 10),
+                 new State("Start",
+                        new EntityNotExistsTransition("shtrs Abandoned Switch 1", 1000, "Wake1")
+                    ),
+
+                    new State("Wake1",
+                        new EntityNotExistsTransition("shtrs Abandoned Switch 2", 1000, "Wake2")
+                        ),
+
+                    new State("Wake2",
+                        new EntityNotExistsTransition("shtrs Abandoned Switch 3", 1000, "Wake3")
+                        ),
+
+                    new State("Wake3",
+                        new EntityNotExistsTransition("shtrs Abandoned Switch 4", 1000, "dormant")
+                        ),
+                new State("dormant",
+                    new EntityNotExistsTransition("shtrs Bridge Sentinel", 1000, "Despawn")
+                    ),
+                new State("Despawn",
+                    new Suicide()
+                    )
+                ))
+
+        .Init("shtrs KillWall 2",
+            new State(
+                 new ChangeGroundOnDeath(new[] { "shtrs Bridge" }, new[] { "shtrs Pure Evil" }, 10),
+                 new State("Start",
+                        new EntityNotExistsTransition("shtrs Abandoned Switch 1", 1000, "Wake1")
+                    ),
+
+                    new State("Wake1",
+                        new EntityNotExistsTransition("shtrs Abandoned Switch 2", 1000, "Wake2")
+                        ),
+
+                    new State("Wake2",
+                        new EntityNotExistsTransition("shtrs Abandoned Switch 3", 1000, "Wake3")
+                        ),
+
+                    new State("Wake3",
+                        new EntityNotExistsTransition("shtrs Abandoned Switch 4", 1000, "dormant")
+                        ),
+
+                new State("dormant",
+                    new EntityNotExistsTransition("shtrs Abandoned Switch 5", 1000, "preDespawn")
+                    ),
+                new State("preDespawn",
+                    new TimedTransition(30000, "Despawn")
+                    ),
+
+                new State("Despawn",
+                    new Suicide()
+                    )
+                ))
+
+        .Init("shtrs Glassier Archmage",
+            new State(
+                new State(
+                new HpLessTransition(0.99, "Main"),
+                new StayBack(.8, 7),
+                new Follow(.8, acquireRange: 9, range: 7),
+                new State("dormant",
+                    new Shoot(9, count: 10, projectileIndex: 1, coolDown: 1000),
+                    new Shoot(9, 1, 10, projectileIndex: 2, coolDownOffset: 200),
+                    new Shoot(9, 1, 10, projectileIndex: 2, coolDownOffset: 400),
+                    new Shoot(9, 1, 10, projectileIndex: 2, coolDownOffset: 800),
+                    new Shoot(9, 1, 10, projectileIndex: 2, coolDownOffset: 1000),
+                    new TimedTransition(1000, "dormant1")
+                    ),
+                    new State("dormant1",
+                    new Shoot(9, count: 10, projectileIndex: 1, coolDown: 1000),
+                    new Shoot(9, 1, 10, projectileIndex: 2, coolDownOffset: 200),
+                    new Shoot(9, 1, 10, projectileIndex: 2, coolDownOffset: 400),
+                    new Shoot(9, 1, 10, projectileIndex: 2, coolDownOffset: 800),
+                    new Shoot(9, 1, 10, projectileIndex: 2, coolDownOffset: 1000),
+                    new TimedTransition(1000, "dormant")
+                    )
+                    ),
+            new State(
+                new StayBack(.8, 7),
+                new Follow(.8, acquireRange: 9, range: 7),
+                new TimedTransition(9500, "prerage"),
+                new State("Main",
+                    new Shoot(9, count: 10, projectileIndex: 1, coolDown: 1000),
+                    new Shoot(9, 1, 10, projectileIndex: 2, coolDownOffset: 200),
+                    new Shoot(9, 1, 10, projectileIndex: 2, coolDownOffset: 400),
+                    new Shoot(9, 1, 10, projectileIndex: 2, coolDownOffset: 800),
+                    new Shoot(9, 1, 10, projectileIndex: 2, coolDownOffset: 1000),
+                    new TimedTransition(1000, "Main1")
+                    ),
+                new State("Main1",
+                    new Shoot(9, count: 10, projectileIndex: 1, coolDown: 1000),
+                    new Shoot(9, 1, 10, projectileIndex: 2, coolDownOffset: 200),
+                    new Shoot(9, 1, 10, projectileIndex: 2, coolDownOffset: 400),
+                    new Shoot(9, 1, 10, projectileIndex: 2, coolDownOffset: 800),
+                    new Shoot(9, 1, 10, projectileIndex: 2, coolDownOffset: 1000),
+                    new TimedTransition(1000, "Main")
+                    ),
+                new State("prerage",
+                    new Flash(0xfFF0000, .5, 3),
+                    new TimedTransition(500, "rage")
+                    ),
+                new State(
+                    new TimedTransition(4000, "Main"),
+                new State("rage",
+                    new ConditionalEffect(ConditionEffectIndex.Armored),
+                    new Shoot(9, count: 10, projectileIndex: 1, coolDown: 1000),
+                    new Shoot(9, 1, 10, projectileIndex: 2, coolDownOffset: 200),
+                    new Shoot(9, 1, 10, projectileIndex: 2, coolDownOffset: 400),
+                    new Shoot(9, 1, 10, projectileIndex: 2, coolDownOffset: 600),
+                    new Shoot(9, 1, 10, projectileIndex: 2, coolDownOffset: 800),
+                    new Shoot(9, 1, 10, projectileIndex: 2, coolDownOffset: 1000),
+                    new Shoot(9, count: 12, projectileIndex: 0, coolDown: 500),
+                    new TimedTransition(1000, "rage1")
+                    ),
+
+                new State("rage1",
+                    new ConditionalEffect(ConditionEffectIndex.Armored),
+                    new Shoot(9, count: 10, projectileIndex: 1, coolDown: 1000),
+                    new Shoot(9, 1, 10, projectileIndex: 2, coolDownOffset: 200),
+                    new Shoot(9, 1, 10, projectileIndex: 2, coolDownOffset: 400),
+                    new Shoot(9, 1, 10, projectileIndex: 2, coolDownOffset: 600),
+                    new Shoot(9, 1, 10, projectileIndex: 2, coolDownOffset: 800),
+                    new Shoot(9, 1, 10, projectileIndex: 2, coolDownOffset: 1000),
+                    new Shoot(9, count: 12, projectileIndex: 0, coolDown: 500),
+                    new TimedTransition(1000, "rage")
+                    )
+
+                ))))
+
+
+            .Init("shtrs Archmage of Flame",
+            new State(
+                new State("dormant",
+                    new HpLessTransition(0.99, "Main"),
+                    new Follow(.8, acquireRange: 9, range: 5)
+                    ),
+            new State(
+                new TimedTransition(9500, "prebombs"),
+                new State("Main",
+                    new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                    new Follow(.8, acquireRange: 9, range: 3),
+                    new PlayerWithinTransition(4, "Start")
+                    ),
+                new State("Start",
+                    new TimedTransition(100, "Start2"),
+                    new Shoot(9, 1, 10, projectileIndex: 0, fixedAngle: 0, coolDownOffset: 0),
+                    new Shoot(9, 1, 10, projectileIndex: 0, fixedAngle: 90, coolDownOffset: 0),
+                    new Shoot(9, 1, 10, projectileIndex: 0, fixedAngle: 180, coolDownOffset: 0),
+                    new Shoot(9, 1, 10, projectileIndex: 0, fixedAngle: 270, coolDownOffset: 0)
+                    ),
+
+                new State("Start2",
+                    new TimedTransition(100, "Start3"),
+                    new Shoot(9, 1, 10, projectileIndex: 0, fixedAngle: 45, coolDownOffset: 0),
+                    new Shoot(9, 1, 10, projectileIndex: 0, fixedAngle: 135, coolDownOffset: 0),
+                    new Shoot(9, 1, 10, projectileIndex: 0, fixedAngle: 225, coolDownOffset: 0),
+                    new Shoot(9, 1, 10, projectileIndex: 0, fixedAngle: 315, coolDownOffset: 0)
+                    ),
+
+                new State("Start3",
+                    new TimedTransition(100, "Start4"),
+                    new Shoot(9, 1, 10, projectileIndex: 0, fixedAngle: 0, coolDownOffset: 0),
+                    new Shoot(9, 1, 10, projectileIndex: 0, fixedAngle: 90, coolDownOffset: 0),
+                    new Shoot(9, 1, 10, projectileIndex: 0, fixedAngle: 180, coolDownOffset: 0),
+                    new Shoot(9, 1, 10, projectileIndex: 0, fixedAngle: 270, coolDownOffset: 0)
+                    ),
+
+                new State("Start4",
+                    new TimedTransition(100, "Main"),
+                    new Shoot(9, 1, 10, projectileIndex: 0, fixedAngle: 45, coolDownOffset: 0),
+                    new Shoot(9, 1, 10, projectileIndex: 0, fixedAngle: 135, coolDownOffset: 0),
+                    new Shoot(9, 1, 10, projectileIndex: 0, fixedAngle: 225, coolDownOffset: 0),
+                    new Shoot(9, 1, 10, projectileIndex: 0, fixedAngle: 315, coolDownOffset: 0)
+                    )),
+
+            new State("prebombs",
+                    new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                    new Follow(.8, acquireRange: 9, range: 3),
+                    new Flash(0xfFF0000, .5, 3),
+                    new TimedTransition(500, "bombs")
+                    ),
+
+            new State("bombs",
+                    new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                    new TossObject("shtrs Firebomb", 4, coolDown: 0, coolDownOffset: 0, randomToss: true),
+                    new TossObject("shtrs Firebomb", 4, coolDown: 0, coolDownOffset: 0, randomToss: true),
+                    new TossObject("shtrs Firebomb", 4, coolDown: 0, coolDownOffset: 0, randomToss: true),
+                    new TossObject("shtrs Firebomb", 4, coolDown: 0, coolDownOffset: 0, randomToss: true),
+                    new TossObject("shtrs Firebomb", 4, coolDown: 0, coolDownOffset: 0, randomToss: true),
+                    new TossObject("shtrs Firebomb", 4, coolDown: 0, coolDownOffset: 0, randomToss: true),
+                    new TossObject("shtrs Firebomb", 4, coolDown: 0, coolDownOffset: 0, randomToss: true),
+                    new TossObject("shtrs Firebomb", 4, coolDown: 0, coolDownOffset: 0, randomToss: true),
+                    new TossObject("shtrs Firebomb", 4, coolDown: 0, coolDownOffset: 0, randomToss: true),
+                    new TossObject("shtrs Firebomb", 4, coolDown: 0, coolDownOffset: 0, randomToss: true),
+                    new TimedTransition(950, "Main")
+                    )
+
+                ))
+
+            .Init("shtrs Ice Adept",
+            new State(
+
+                new State("dormant",
+                    new HpLessTransition(0.99, "Main"),
+                    new Follow(.8, acquireRange: 9, range: 1),
+                    new Shoot(9, 3, projectileIndex: 0, coolDown: 100, predictive: 1)
+                ),
+
+                new State("Main",
+                    new TimedTransition(9500, "prethrow"),
+                    new Follow(.8, acquireRange: 9, range: 1),
+                    new Shoot(9, 3, projectileIndex: 0, coolDown: 100, predictive: 1),
+                    new Shoot(9, count: 10, projectileIndex: 1, coolDown: 4000)
+                ),
+
+                new State("prethrow",
+                    new Flash(0xfFF0000, .5, 3),
+                    new TimedTransition(500, "Throw")
+                ),
+
+                new State("Throw",
+                    new TossObject("shtrs Ice Portal", 10, coolDown: 8000, coolDownOffset: 900, randomToss: false),
+                    new TimedTransition(1000, "Main")
+                )
+                  ),
+            new ItemLoot("Magic Potion", 0.1),
+            new ItemLoot("Health Potion", 0.1),
+            new ItemLoot("The Forgotten Ring", 0.001)
+            )
 
             .Init("shtrs MagiGenerators",
             new State(
                 new State("Main",
                     new ConditionalEffect(ConditionEffectIndex.Invulnerable),
-                    new Shoot(15, 10, coolDown:1000),
-                    new Shoot(15, 1, projectileIndex:1, coolDown:2500)
+                    new Shoot(15, 10, coolDown: 1000),
+                    new Shoot(15, 1, projectileIndex: 1, coolDown: 2500)
                 ),
                 new State("Hide",
                     new SetAltTexture(1),
@@ -109,8 +459,526 @@ namespace wServer.logic
                     new Decay()
                     )
                   ))
+
+        .Init("shtrs Abandoned Switch 1",
+            new State(
+                    new State("Idle",
+                        new Taunt("I'm alive")
+                        )))
+
+        .Init("shtrs Abandoned Switch 2",
+            new State(
+                    new State("Idle",
+                        new Taunt("I'm alive")
+            )))
+         .Init("shtrs Abandoned Switch 3",
+            new State(
+                    new State("Idle",
+                        new Taunt("I'm alive")
+
+            )))
+        .Init("shtrs Abandoned Switch 4",
+            new State(
+                    new State("Idle",
+                        new Taunt("I'm alive")
+
+            )))
+
+                .Init("shtrs Abandoned Switch 5",
+            new State(
+                    new State("Idle",
+                        new Taunt("I'm alive")
+
+            )))
+
+        .Init("shtrs Bridge Obelisk A",
+                new State(
+                    new State("Idle",
+                        new TimedTransition(2500, "Start")
+                        ),
+                        new State("Start",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new EntityNotExistsTransition("shtrs Abandoned Switch 1", 1000, "Wake1")
+                    ),
+
+                    new State("Wake1",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new EntityNotExistsTransition("shtrs Abandoned Switch 2", 1000, "Wake2")
+                        ),
+
+                    new State("Wake2",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new EntityNotExistsTransition("shtrs Abandoned Switch 3", 1000, "Wake3")
+                        ),
+
+                    new State("Wake3",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new EntityNotExistsTransition("shtrs Abandoned Switch 4", 1000, "Wake4")
+                        ),
+
+                    new State("Wake4",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new EntityNotExistsTransition("shtrs Abandoned Switch 5", 20000, "Wake5")
+                        ),
+
+                    new State("Wake5",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new TimedTransition(30000, "Wake")
+                        ),
+
+                    new State("Prewake",
+                        new Flash(0xfFF0000, .5, 3),
+                        new TimedTransition(500, "Wake")
+
+                        ),
+
+                    new State("Wake",
+                        new Flash(0xfFF0000, .5, 3),
+                        new Taunt("DON'T WAKE THE BRIDGE GUARDIAN!"),
+                        new TimedTransition(10000, "Idle1"),
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 0),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 0, coolDownOffset: 200),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 0, coolDownOffset: 400),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 0, coolDownOffset: 600),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 0, coolDownOffset: 800),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 0, coolDownOffset: 1000),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 90),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 90, coolDownOffset: 200),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 90, coolDownOffset: 400),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 90, coolDownOffset: 600),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 90, coolDownOffset: 800),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 90, coolDownOffset: 1000)
+
+                        ),
+                    new State("Idle1",
+                        new Flash(0xfFF0000, .5, 3),
+                        new TimedTransition(9500, "Prewake")
+
+                        )
+                    ))
+
+                .Init("shtrs Bridge Obelisk B",
+                new State(
+                    new State("Idle",
+                        new TimedTransition(2500, "Start")
+                        ),
+                        new State("Start",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new EntityNotExistsTransition("shtrs Abandoned Switch 1", 1000, "Wake1")
+                    ),
+
+                    new State("Wake1",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new EntityNotExistsTransition("shtrs Abandoned Switch 2", 1000, "Wake2")
+                        ),
+
+                    new State("Wake2",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new EntityNotExistsTransition("shtrs Abandoned Switch 3", 1000, "Wake3")
+                        ),
+
+                    new State("Wake3",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new EntityNotExistsTransition("shtrs Abandoned Switch 4", 1000, "Wake4")
+                        ),
+
+                    new State("Wake4",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new EntityNotExistsTransition("shtrs Abandoned Switch 5", 20000, "Wake5")
+                        ),
+
+                    new State("Wake5",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new TimedTransition(30000, "Wake")
+                        ),
+
+                    new State("Prewake",
+                        new Flash(0xfFF0000, .5, 3),
+                        new TimedTransition(500, "Wake")
+
+                        ),
+
+                    new State("Wake",
+                        new Flash(0xfFF0000, .5, 3),
+                        new Taunt("DON'T WAKE THE BRIDGE GUARDIAN!"),
+                        new TimedTransition(10000, "Idle1"),
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 0),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 0, coolDownOffset: 200),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 0, coolDownOffset: 400),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 0, coolDownOffset: 600),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 0, coolDownOffset: 800),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 0, coolDownOffset: 1000),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 270),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 270, coolDownOffset: 200),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 270, coolDownOffset: 400),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 270, coolDownOffset: 600),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 270, coolDownOffset: 800),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 270, coolDownOffset: 1000)
+                        ),
+                    new State("Idle1",
+                        new Flash(0xfFF0000, .5, 3),
+                        new Spawn("shtrs Stone Mage", maxChildren: 1, coolDown: 9400),
+                        new Spawn("shtrs Stone Knight", maxChildren: 1, coolDown: 9400),
+                        new TimedTransition(9500, "Prewake")
+
+                        )
+                    ))
+
+        .Init("shtrs Bridge Obelisk C",
+                new State(
+                    new ConditionalEffect(ConditionEffectIndex.Armored),
+                    new State("Idle",
+                        new TimedTransition(2500, "Start")
+                        ),
+                        new State("Start",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new EntityNotExistsTransition("shtrs Abandoned Switch 1", 1000, "Wake1")
+                    ),
+
+                    new State("Wake1",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new EntityNotExistsTransition("shtrs Abandoned Switch 2", 1000, "Wake2")
+                        ),
+
+                    new State("Wake2",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new EntityNotExistsTransition("shtrs Abandoned Switch 3", 1000, "Wake3")
+                        ),
+
+                    new State("Wake3",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new EntityNotExistsTransition("shtrs Abandoned Switch 4", 1000, "Wake4")
+                        ),
+
+                    new State("Wake4",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new EntityNotExistsTransition("shtrs Abandoned Switch 5", 20000, "Wake5")
+                        ),
+
+                    new State("Wake5",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new TimedTransition(30000, "Wake")
+                        ),
+
+                    new State("Prewake",
+                        new Flash(0xfFF0000, .5, 3),
+                        new TimedTransition(500, "Wake")
+
+                        ),
+
+                    new State("Wake",
+                        new Flash(0xfFF0000, .5, 3),
+                        new Taunt("DON'T WAKE THE BRIDGE GUARDIAN!"),
+                        new TimedTransition(10000, "Idle1"),
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 0),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 0, coolDownOffset: 200),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 0, coolDownOffset: 400),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 0, coolDownOffset: 600),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 0, coolDownOffset: 800),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 0, coolDownOffset: 1000),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 90),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 90, coolDownOffset: 200),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 90, coolDownOffset: 400),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 90, coolDownOffset: 600),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 90, coolDownOffset: 800),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 90, coolDownOffset: 1000)
+
+                        ),
+                    new State("Idle1",
+                        new Flash(0xfFF0000, .5, 3),
+                        new TimedTransition(9500, "Prewake")
+
+                        )
+                    ))
+
+                .Init("shtrs Bridge Obelisk D",
+                new State(
+                    new State("Idle",
+                        new TimedTransition(2500, "Start")
+                        ),
+                        new State("Start",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new EntityNotExistsTransition("shtrs Abandoned Switch 1", 1000, "Wake1")
+                    ),
+
+                    new State("Wake1",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new EntityNotExistsTransition("shtrs Abandoned Switch 2", 1000, "Wake2")
+                        ),
+
+                    new State("Wake2",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new EntityNotExistsTransition("shtrs Abandoned Switch 3", 1000, "Wake3")
+                        ),
+
+                    new State("Wake3",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new EntityNotExistsTransition("shtrs Abandoned Switch 4", 1000, "Wake4")
+                        ),
+
+                    new State("Wake4",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new EntityNotExistsTransition("shtrs Abandoned Switch 5", 20000, "Wake5")
+                        ),
+
+                    new State("Wake5",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new TimedTransition(30000, "Wake")
+                        ),
+
+                    new State("Prewake",
+                        new Flash(0xfFF0000, .5, 3),
+                        new TimedTransition(500, "Wake")
+
+                        ),
+
+                    new State("Wake",
+                        new Flash(0xfFF0000, .5, 3),
+                        new Taunt("DON'T WAKE THE BRIDGE GUARDIAN!"),
+                        new TimedTransition(10000, "Idle1"),
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 180),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 180, coolDownOffset: 200),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 180, coolDownOffset: 400),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 180, coolDownOffset: 600),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 180, coolDownOffset: 800),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 180, coolDownOffset: 1000),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 90),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 90, coolDownOffset: 200),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 90, coolDownOffset: 400),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 90, coolDownOffset: 600),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 90, coolDownOffset: 800),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 90, coolDownOffset: 1000)
+
+                        ),
+                    new State("Idle1",
+                        new Flash(0xfFF0000, .5, 3),
+                        new TimedTransition(9500, "Prewake")
+
+                        )
+                    ))
+
+                .Init("shtrs Bridge Obelisk E",
+                new State(
+                    new State("Idle",
+                        new TimedTransition(2500, "Start")
+                        ),
+                        new State("Start",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new EntityNotExistsTransition("shtrs Abandoned Switch 1", 1000, "Wake1")
+                    ),
+
+                    new State("Wake1",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new EntityNotExistsTransition("shtrs Abandoned Switch 2", 1000, "Wake2")
+                        ),
+
+                    new State("Wake2",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new EntityNotExistsTransition("shtrs Abandoned Switch 3", 1000, "Wake3")
+                        ),
+
+                    new State("Wake3",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new EntityNotExistsTransition("shtrs Abandoned Switch 4", 1000, "Wake4")
+                        ),
+
+                    new State("Wake4",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new EntityNotExistsTransition("shtrs Abandoned Switch 5", 20000, "Wake5")
+                        ),
+
+                    new State("Wake5",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new TimedTransition(30000, "Wake")
+                        ),
+
+                    new State("Prewake",
+                        new Flash(0xfFF0000, .5, 3),
+                        new TimedTransition(500, "Wake")
+
+                        ),
+
+                    new State("Wake",
+                        new Flash(0xfFF0000, .5, 3),
+                        new Taunt("DON'T WAKE THE BRIDGE GUARDIAN!"),
+                        new TimedTransition(10000, "Idle1"),
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 180),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 180, coolDownOffset: 200),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 180, coolDownOffset: 400),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 180, coolDownOffset: 600),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 180, coolDownOffset: 800),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 180, coolDownOffset: 1000),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 270),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 270, coolDownOffset: 200),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 270, coolDownOffset: 400),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 270, coolDownOffset: 600),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 270, coolDownOffset: 800),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 270, coolDownOffset: 1000)
+
+                        ),
+                    new State("Idle1",
+                        new Flash(0xfFF0000, .5, 3),
+                        new Spawn("shtrs Stone Mage", maxChildren: 1, coolDown: 9400),
+                        new Spawn("shtrs Stone Knight", maxChildren: 1, coolDown: 9400),
+                        new TimedTransition(9500, "Prewake")
+
+                        )
+                    ))
+
+                        .Init("shtrs Bridge Obelisk F",
+                new State(
+                    new ConditionalEffect(ConditionEffectIndex.Armored),
+                    new State("Idle",
+                        new TimedTransition(2500, "Start")
+                        ),
+                        new State("Start",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new EntityNotExistsTransition("shtrs Abandoned Switch 1", 1000, "Wake1")
+                    ),
+
+                    new State("Wake1",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new EntityNotExistsTransition("shtrs Abandoned Switch 2", 1000, "Wake2")
+                        ),
+
+                    new State("Wake2",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new EntityNotExistsTransition("shtrs Abandoned Switch 3", 1000, "Wake3")
+                        ),
+
+                    new State("Wake3",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new EntityNotExistsTransition("shtrs Abandoned Switch 4", 1000, "Wake4")
+                        ),
+
+                    new State("Wake4",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new EntityNotExistsTransition("shtrs Abandoned Switch 5", 20000, "Wake5")
+                        ),
+
+                    new State("Wake5",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new TimedTransition(30000, "Wake")
+                        ),
+
+                    new State("Prewake",
+                        new Flash(0xfFF0000, .5, 3),
+                        new TimedTransition(500, "Wake")
+
+                        ),
+
+                    new State("Wake",
+                        new Flash(0xfFF0000, .5, 3),
+                        new TimedTransition(10000, "Idle1"),
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new Taunt("DON'T WAKE THE BRIDGE GUARDIAN!"),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 180),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 180, coolDownOffset: 200),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 180, coolDownOffset: 400),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 180, coolDownOffset: 600),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 180, coolDownOffset: 800),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 180, coolDownOffset: 1000),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 90),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 90, coolDownOffset: 200),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 90, coolDownOffset: 400),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 90, coolDownOffset: 600),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 90, coolDownOffset: 800),
+                        new Shoot(15, 1, projectileIndex: 0, fixedAngle: 90, coolDownOffset: 1000)
+                        ),
+                    new State("Idle1",
+                        new Flash(0xfFF0000, .5, 3),
+                        new Spawn("shtrs Stone Paladin", maxChildren: 1, coolDown: 9500),
+                        new TimedTransition(9500, "Prewake")
+                        )
+
+                    ))
+
+        .Init("shtrs Bridge Titanum",
+                new State(
+                    new NoPlayerWithinTransition(8, "Idle"),
+                    new State("Idle",
+                        new PlayerWithinTransition(8, "Start")
+                        ),
+
+                    new State("Idle1",
+                        new TimedTransition(3000, "Start")
+                        ),
+
+                    new State("Start",
+                        new TimedTransition(3100, "Idle1"),
+                        new Spawn("shtrs Stone Mage", maxChildren: 1, coolDown: 3000),
+                        new Spawn("shtrs Stone Knight", maxChildren: 1, coolDown: 3000)
+                    )
+
+                    ))
+
+        .Init("shtrs Ice Shield",
+            new State(
+                new TimedTransition(15000, "Suicide"),
+                    new State("Idle",
+                        new TimedTransition(2500, "Spin")
+                    ),
+                    new State("Spin",
+                        new TimedTransition(2000, "Pause"),
+                        new State("Quadforce1",
+                            new Shoot(0, projectileIndex: 0, count: 6, shootAngle: 60, fixedAngle: 0, coolDown: 300),
+                            new Shoot(0, projectileIndex: 0, count: 6, shootAngle: 40, fixedAngle: 0, coolDown: 300),
+                            new TimedTransition(150, "Quadforce2")
+                        ),
+                        new State("Quadforce2",
+                            new Shoot(0, projectileIndex: 0, count: 6, shootAngle: 60, fixedAngle: 15, coolDown: 300),
+                            new Shoot(0, projectileIndex: 0, count: 6, shootAngle: 40, fixedAngle: 15, coolDown: 300),
+                            new TimedTransition(150, "Quadforce3")
+                        ),
+                        new State("Quadforce3",
+                            new Shoot(0, projectileIndex: 0, count: 6, shootAngle: 60, fixedAngle: 30, coolDown: 300),
+                            new Shoot(0, projectileIndex: 0, count: 6, shootAngle: 40, fixedAngle: 30, coolDown: 300),
+                            new TimedTransition(150, "Quadforce4")
+                        ),
+                        new State("Quadforce4",
+                            new Shoot(0, projectileIndex: 0, count: 6, shootAngle: 60, fixedAngle: 45, coolDown: 300),
+                            new Shoot(0, projectileIndex: 0, count: 6, shootAngle: 40, fixedAngle: 45, coolDown: 300),
+                            new TimedTransition(150, "Quadforce5")
+                        ),
+                        new State("Quadforce5",
+                            new Shoot(0, projectileIndex: 0, count: 6, shootAngle: 60, fixedAngle: 60, coolDown: 300),
+                            new Shoot(0, projectileIndex: 0, count: 6, shootAngle: 40, fixedAngle: 45, coolDown: 300),
+                            new TimedTransition(150, "Quadforce6")
+                        ),
+                        new State("Quadforce6",
+                            new Shoot(0, projectileIndex: 0, count: 6, shootAngle: 60, fixedAngle: 75, coolDown: 300),
+                            new Shoot(0, projectileIndex: 0, count: 6, shootAngle: 40, fixedAngle: 45, coolDown: 300),
+                            new TimedTransition(150, "Quadforce7")
+                        ),
+                        new State("Quadforce7",
+                            new Shoot(0, projectileIndex: 0, count: 6, shootAngle: 60, fixedAngle: 90, coolDown: 300),
+                            new Shoot(0, projectileIndex: 0, count: 6, shootAngle: 40, fixedAngle: 45, coolDown: 300),
+                            new TimedTransition(150, "Quadforce8")
+                        ),
+                        new State("Quadforce8",
+                            new Shoot(0, projectileIndex: 0, count: 6, shootAngle: 60, fixedAngle: 105, coolDown: 300),
+                            new Shoot(0, projectileIndex: 0, count: 6, shootAngle: 40, fixedAngle: 45, coolDown: 300),
+                            new TimedTransition(150, "Quadforce1")
+                        )
+                    ),
+                    new State("Pause",
+                       new TimedTransition(5000, "Spin")
+                    ),
+                    new State("Suicide",
+                        new Shoot(25, count: 12, fixedAngle: 0, projectileIndex: 1, coolDown: 500),
+                        new Suicide()
+                                        )
+                )
+            )
+
             .Init("shtrs Ice Portal",
                 new State(
+                    new TimedTransition(15000, "Suicide"),
                     new State("Idle",
                         new TimedTransition(2500, "Spin")
                     ),
@@ -151,11 +1019,15 @@ namespace wServer.logic
                     ),
                     new State("Pause",
                        new TimedTransition(5000, "Spin")
-                    )
+                    ),
+                    new State("Suicide",
+                        new Suicide()
+                                        )
                 )
             )
             .Init("shtrs Fire Portal",
                 new State(
+                    new TimedTransition(15000, "Suicide"),
                     new State("Idle",
                         new TimedTransition(2500, "Spin")
                     ),
@@ -196,7 +1068,10 @@ namespace wServer.logic
                     ),
                     new State("Pause",
                        new TimedTransition(5000, "Spin")
-                    )
+                    ),
+                    new State("Suicide",
+                        new Suicide()
+                                        )
                 )
             )
             .Init("shtrs Bridge Sentinel",
@@ -206,13 +1081,26 @@ namespace wServer.logic
                     new HpLessTransition(0.1, "Death"),
                     new CopyDamageOnDeath("shtrs Encounter Chest"),
                     new State("Idle",
-                        new PlayerWithinTransition(3, "Close Bridge")
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new EntityNotExistsTransition("shtrs Bridge Obelisk A", 20000, "Idle1")
+                    ),
+                    new State("Idle1",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new EntityNotExistsTransition("shtrs Bridge Obelisk B", 20000, "Idle2")
+                    ),
+                    new State("Idle2",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new EntityNotExistsTransition("shtrs Bridge Obelisk D", 20000, "Idle3")
+                    ),
+                    new State("Idle3",
+                        new ConditionalEffect(ConditionEffectIndex.Invulnerable),
+                        new EntityNotExistsTransition("shtrs Bridge Obelisk E", 1000, "Start")
                     ),
                     //not correct
-                    new State("Close Bridge",
-                        new CallWorldMethod("Shatters", "CloseBridge1", null),
-                        new TimedTransition(35000, "Start")
-                    ),
+                    //new State("Close Bridge",
+                    //new CallWorldMethod("Shatters", "CloseBridge1", null),
+                    //new TimedTransition(3500, "Start")
+                    //),
                     //new State("Start the Start",
                     //    new Order(10, "shtrs Bridge Obelisk A", "Talk"),
                     //    new Order(10, "shtrs Bridge Obelisk B", "Talk"),
@@ -220,256 +1108,142 @@ namespace wServer.logic
                     //    new Order(10, "shtrs Bridge Obelisk D", "Talk")
                     //),
                     new State("Start",
-                        new Shoot(15, 10, 15, 5, 90, coolDown: 1000),
+                        new Shoot(15, 10, 15, 5, 270, coolDown: 1000),
                         new ConditionalEffect(ConditionEffectIndex.Invulnerable),
-                        new EntityNotExistsTransition("shtrs Bridge Titanum", 10, "Wake")
+                        new EntityNotExistsTransition("shtrs Bridge Obelisk E", 10, "Wake")
                         ),
                         new State("Wake",
                         new ConditionalEffect(ConditionEffectIndex.Invulnerable),
                         new Taunt("Who has woken me...? Leave this place."),
+                        new Shoot(15, 10, 15, 5, 270, coolDown: 1000),
                         new Timed(2100, new Shoot(15, 15, 12, projectileIndex: 0, fixedAngle: 90, coolDown: 700, coolDownOffset: 3000)),
-                        new TimedTransition(8000, "Swirl Shot")
+                         new TimedTransition(8000, "taunt2")
                         ),
+                        new State("taunt2",
+                            new Taunt("Good pests must be gone."),
+                            new Shoot(15, 10, 15, 5, 270, coolDown: 1000),
+                            new HpLessTransition(0.93, "Blobomb")
+                            ),
+
                         new State("Swirl Shot",
+                            new Shoot(15, 10, 15, 5, 270, coolDown: 1000),
                             new Taunt("Go."),
-                            new TimedTransition(10000, "Blobomb"),
-                            new State("Swirl1",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 12, coolDown: 200),
-                            new TimedTransition(50, "Swirl2")
+                            new TimedTransition(10400, "Blobomb"),
+                                new State("Swirl1_1",
+                            new TimedTransition(1000, "Swirl1_9"),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 0),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 12, coolDownOffset: 200),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 24, coolDownOffset: 400),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 36, coolDownOffset: 600),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 48, coolDownOffset: 800),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 60, coolDownOffset: 1000)
                             ),
-                            new State("Swirl2",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 24, coolDown: 200),
-                            new TimedTransition(50, "Swirl3")
+                                new State("Swirl1_9",
+                            new TimedTransition(1000, "Swirl1_3"),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 72, coolDownOffset: 0),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 84, coolDownOffset: 200),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 96, coolDownOffset: 400),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 108, coolDownOffset: 600),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 120, coolDownOffset: 800),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 132, coolDownOffset: 1000)
+                                    ),
+                                new State("Swirl1_3",
+                            new TimedTransition(1000, "Swirl1_4"),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 144, coolDownOffset: 0),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 156, coolDownOffset: 200),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 168, coolDownOffset: 400),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 180, coolDownOffset: 600),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 180, coolDownOffset: 800),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 168, coolDownOffset: 1000)
+                                    ),
+                                new State("Swirl1_4",
+                            new TimedTransition(1000, "Swirl1_5"),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 156, coolDownOffset: 0),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 144, coolDownOffset: 200),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 132, coolDownOffset: 400),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 120, coolDownOffset: 600),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 108, coolDownOffset: 800),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 96, coolDownOffset: 1000)
                             ),
-                            new State("Swirl3",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 36, coolDown: 200),
-                            new TimedTransition(50, "Swirl4")
+                                new State("Swirl1_5",
+                            new TimedTransition(1000, "Swirl1_6"),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 84, coolDownOffset: 0),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 72, coolDownOffset: 200),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 60, coolDownOffset: 400),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 48, coolDownOffset: 600),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 36, coolDownOffset: 800),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 24, coolDownOffset: 1000)
                             ),
-                            new State("Swirl4",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 48, coolDown: 200),
-                            new TimedTransition(50, "Swirl5")
-                            ),
-                            new State("Swirl5",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 60, coolDown: 200),
-                            new TimedTransition(50, "Swirl6")
-                            ),
-                            new State("Swirl6",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 72, coolDown: 200),
-                            new TimedTransition(50, "Swirl7")
-                            ),
-                            new State("Swirl7",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 84, coolDown: 200),
-                            new TimedTransition(50, "Swirl8")
-                            ),
-                            new State("Swirl8",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 96, coolDown: 200),
-                            new TimedTransition(50, "Swirl9")
-                            ),
-                            new State("Swirl9",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 108, coolDown: 200),
-                            new TimedTransition(50, "Swirl10")
-                            ),
-                            new State("Swirl10",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 120, coolDown: 200),
-                            new TimedTransition(50, "Swirl11")
-                            ),
-                            new State("Swirl11",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 132, coolDown: 200),
-                            new TimedTransition(50, "Swirl12")
-                            ),
-                            new State("Swirl12",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 144, coolDown: 200),
-                            new TimedTransition(50, "Swirl13")
-                            ),
-                            new State("Swirl13",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 156, coolDown: 200),
-
-                            new TimedTransition(50, "Swirl14")
-                            ),
-                            new State("Swirl14",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 168, coolDown: 200),
-                            new TimedTransition(50, "Swirl15")
-                            ),
-                            new State("Swirl15",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 168, coolDown: 200),
-                            new TimedTransition(50, "Swirl16")
-                            ),
-                            new State("Swirl16",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 156, coolDown: 200),
-
-                            new TimedTransition(50, "Swirl17")
-                            ),
-                            new State("Swirl17",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 144, coolDown: 200),
-                            new TimedTransition(50, "Swirl18")
-                            ),
-                            new State("Swirl18",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 132, coolDown: 200),
-                            new TimedTransition(50, "Swirl19")
-                            ),
-                            new State("Swirl19",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 120, coolDown: 200),
-                            new TimedTransition(50, "Swirl20")
-                            ),
-                            new State("Swirl20",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 108, coolDown: 200),
-                            new TimedTransition(50, "Swirl21")
-                            ),
-                            new State("Swirl21",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 96, coolDown: 200),
-                            new TimedTransition(50, "Swirl22")
-                            ),
-                            new State("Swirl22",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 84, coolDown: 200),
-                            new TimedTransition(50, "Swirl23")
-                            ),
-                            new State("Swirl23",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 72, coolDown: 200),
-                            new TimedTransition(50, "Swirl24")
-                            ),
-                            new State("Swirl24",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 60, coolDown: 200),
-                            new TimedTransition(50, "Swirl25")
-                            ),
-                            new State("Swirl25",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 48, coolDown: 200),
-                            new TimedTransition(50, "Swirl26")
-                            ),
-                            new State("Swirl26",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 36, coolDown: 200),
-                            new TimedTransition(50, "Swirl27")
-                            ),
-                            new State("Swirl27",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 24, coolDown: 200),
-                            new TimedTransition(50, "Swirl28")
-                            ),
-                            new State("Swirl28",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 12, coolDown: 200),
-                            new TimedTransition(50, "Swirl1")
+                                new State("Swirl1_6",
+                            new TimedTransition(200, "Swirl1_1"),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 12, coolDownOffset: 0),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 0, coolDownOffset: 200)
                             )
+                            
+
                             ),
                             new State("Blobomb",
                             new Taunt("You live still? DO NOT TEMPT FATE!"),
                             new Taunt("CONSUME!"),
                             new Order(20, "shtrs blobomb maker", "Spawn"),
-                            new EntityNotExistsTransition("shtrs Blobomb", 30, "SwirlAndShoot")
+                            new HpLessTransition(.30, "SwirlAndShoot")
+                            //new EntityNotExistsTransition("shtrs Blobomb", 30, "SwirlAndShoot")
                                 ),
                                 new State("SwirlAndShoot",
-                                    new TimedTransition(10000, "Blobomb"),
                                     new Taunt("FOOLS! YOU DO NOT UNDERSTAND!"),
-                                    new ChangeSize(20, 130),
+                                    new ChangeSize(20, 150),
+                                    new Shoot(15, 10, 15, 5, 270, coolDown: 1000),
                             new Shoot(15, 15, 11, projectileIndex: 0, fixedAngle: 90, coolDown: 700, coolDownOffset: 700),
-                                    new State("Swirl1_2",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 12, coolDown: 200),
-                            new TimedTransition(50, "Swirl2_2")
+                                new State("Swirl2_1",
+                            new TimedTransition(1000, "Swirl2_9"),
+                            new Order(20, "shtrs blobomb maker", "AVATAR HELP!"),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 0),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 12, coolDownOffset: 200),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 24, coolDownOffset: 400),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 36, coolDownOffset: 600),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 48, coolDownOffset: 800),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 60, coolDownOffset: 1000)
                             ),
-                            new State("Swirl2_2",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 24, coolDown: 200),
-                            new TimedTransition(50, "Swirl3_2")
+                                new State("Swirl2_9",
+                            new TimedTransition(1000, "Swirl2_3"),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 72, coolDownOffset: 0),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 84, coolDownOffset: 200),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 96, coolDownOffset: 400),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 108, coolDownOffset: 600),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 120, coolDownOffset: 800),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 132, coolDownOffset: 1000)
+                                    ),
+                                new State("Swirl2_3",
+                            new TimedTransition(1000, "Swirl2_4"),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 144, coolDownOffset: 0),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 156, coolDownOffset: 200),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 168, coolDownOffset: 400),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 180, coolDownOffset: 600),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 180, coolDownOffset: 800),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 168, coolDownOffset: 1000)
+                                    ),
+                                new State("Swirl2_4",
+                            new TimedTransition(1000, "Swirl2_5"),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 156, coolDownOffset: 0),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 144, coolDownOffset: 200),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 132, coolDownOffset: 400),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 120, coolDownOffset: 600),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 108, coolDownOffset: 800),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 96, coolDownOffset: 1000)
                             ),
-                            new State("Swirl3_2",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 36, coolDown: 200),
-                            new TimedTransition(50, "Swirl4_2")
+                                new State("Swirl2_5",
+                            new TimedTransition(1000, "Swirl2_6"),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 84, coolDownOffset: 0),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 72, coolDownOffset: 200),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 60, coolDownOffset: 400),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 48, coolDownOffset: 600),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 36, coolDownOffset: 800),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 24, coolDownOffset: 1000)
                             ),
-                            new State("Swirl4_2",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 48, coolDown: 200),
-                            new TimedTransition(50, "Swirl5_2")
-                            ),
-                            new State("Swirl5_2",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 60, coolDown: 200),
-                            new TimedTransition(50, "Swirl6_2")
-                            ),
-                            new State("Swirl6_2",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 72, coolDown: 200),
-                            new TimedTransition(50, "Swirl7_2")
-                            ),
-                            new State("Swirl7_2",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 84, coolDown: 200),
-                            new TimedTransition(50, "Swirl8_2")
-                            ),
-                            new State("Swirl8_2",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 96, coolDown: 200),
-                            new TimedTransition(50, "Swirl9_2")
-                            ),
-                            new State("Swirl9_2",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 108, coolDown: 200),
-                            new TimedTransition(50, "Swirl10_2")
-                            ),
-                            new State("Swirl10_2",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 120, coolDown: 200),
-                            new TimedTransition(50, "Swirl11_2")
-                            ),
-                            new State("Swirl11_2",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 132, coolDown: 200),
-                            new TimedTransition(50, "Swirl12_2")
-                            ),
-                            new State("Swirl12_2",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 144, coolDown: 200),
-                            new TimedTransition(50, "Swirl13_2")
-                            ),
-                            new State("Swirl13_2",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 156, coolDown: 200),
-                            new TimedTransition(50, "Swirl14_2")
-                            ),
-                            new State("Swirl14_2",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 168, coolDown: 200),
-                            new TimedTransition(50, "Swirl15_2")
-                            ),
-                            new State("Swirl15_2",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 168, coolDown: 200),
-                            new TimedTransition(50, "Swirl16_2")
-                            ),
-                            new State("Swirl16_2",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 156, coolDown: 200),
-                            new TimedTransition(50, "Swirl17_2")
-                            ),
-                            new State("Swirl17_2",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 144, coolDown: 200),
-                            new TimedTransition(50, "Swirl18_2")
-                            ),
-                            new State("Swirl18_2",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 132, coolDown: 200),
-                            new TimedTransition(50, "Swirl19_2")
-                            ),
-                            new State("Swirl19_2",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 120, coolDown: 200),
-                            new TimedTransition(50, "Swirl20_2")
-                            ),
-                            new State("Swirl20_2",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 108, coolDown: 200),
-                            new TimedTransition(50, "Swirl21_2")
-                            ),
-                            new State("Swirl21_2",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 96, coolDown: 200),
-                            new TimedTransition(50, "Swirl22_2")
-                            ),
-                            new State("Swirl22_2",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 84, coolDown: 200),
-                            new TimedTransition(50, "Swirl23_2")
-                            ),
-                            new State("Swirl23_2",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 72, coolDown: 200),
-                            new TimedTransition(50, "Swirl24_2")
-                            ),
-                            new State("Swirl24_2",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 60, coolDown: 200),
-                            new TimedTransition(50, "Swirl25_2")
-                            ),
-                            new State("Swirl25_2",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 48, coolDown: 200),
-                            new TimedTransition(50, "Swirl26_2")
-                            ),
-                            new State("Swirl26_2",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 36, coolDown: 200),
-                            new TimedTransition(50, "Swirl27_2")
-                            ),
-                            new State("Swirl27_2",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 24, coolDown: 200),
-                            new TimedTransition(50, "Swirl28_2")
-                            ),
-                            new State("Swirl28_2",
-                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 12, coolDown: 200),
-                            new TimedTransition(50, "Swirl1_2")
+                                new State("Swirl2_6",
+                            new TimedTransition(200, "Swirl2_1"),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 12, coolDownOffset: 0),
+                            new Shoot(15, 1, projectileIndex: 0, fixedAngle: 0, coolDownOffset: 200)
                             )
                                     ),
                                     new State("Death",
@@ -478,6 +1252,9 @@ namespace wServer.logic
                                         new ConditionalEffect(ConditionEffectIndex.Invulnerable),
                                         new Taunt("I tried to protect you...I have failed. You release a great evil upon this realm..."),
                                         new Shoot(15, 12, projectileIndex: 0, coolDown: 100000, coolDownOffset: 3000),
+                                        new TimedTransition(4000, "Suicide")
+                                        ),
+                                    new State("Suicide",
                                         new CopyDamageOnDeath("shtrs Encounter Chest"),
                                         new Order(10, "shtrs encounterchestspawner", "Spawn"),
                                         new Suicide()
@@ -640,20 +1417,20 @@ namespace wServer.logic
                     new State("Bracer")
                 ),
                 new Threshold(0.1,
-                    new TierLoot(11, ItemType.Weapon, 0.06),
-                    new TierLoot(12, ItemType.Weapon, 0.05),
-                    new TierLoot(6, ItemType.Ability, 0.05),
-                    new TierLoot(12, ItemType.Armor, 0.06),
-                    new TierLoot(13, ItemType.Armor, 0.05),
-                    new TierLoot(6, ItemType.Ring, 0.06)
+                    new TierLoot(11, ItemType.Weapon, 0.15),
+                    new TierLoot(12, ItemType.Weapon, 0.1),
+                    new TierLoot(6, ItemType.Ability, 0.1),
+                    new TierLoot(12, ItemType.Armor, 0.15),
+                    new TierLoot(13, ItemType.Armor, 0.1),
+                    new TierLoot(6, ItemType.Ring, 0.1)
                 ),
                 new LootState("obelisk",
                     new Threshold(0.32,
-                        new ItemLoot("Potion of Attack", 1),
-                        new ItemLoot("Potion of Defense", 0.5)
+                        new ItemLoot("Potion of Mana", 1),
+                        new ItemLoot("Potion of Life", 0.5)
                     ),
                     new Threshold(0.1,
-                        new ItemLoot("Bracer of the Guardian", 0.005)
+                        new ItemLoot("Bracer of the Guardian", 0.009)
                     )
                 ),
                 new LootState("archmage",
